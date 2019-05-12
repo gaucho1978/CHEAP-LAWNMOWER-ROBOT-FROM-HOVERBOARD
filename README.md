@@ -19,6 +19,8 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/top.png)
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/front.png)
 
+
+------------------------------
 #### MECHANICAL CONSIDERATIONS
 - You will find files for manufacturing alluminium plate and polycarbonate cover in the folder:
    LawnMowerMEchanicalProject/FILES FOR MANUFACTURING\PDF FORMAT
@@ -31,6 +33,7 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 - I used autolock bolts to fix the blade on the shaft.
 
 
+------------------------------
 #### BILL OF MATERIAL - TOTAL COST 120 EURO
 50 EURO - USED HOVERBOARD - https://www.mediaworld.it/product/p-742077/i-bike-kidplay-streetboard-one-hoverboard-6-5?ds_rl=1250284&ds_rl=1250284&gclid=CjwKCAjwiN_mBRBBEiwA9N-e_qMfsYSRb5w4XxsWQmA6IEDfbXj_eAiy6rWeXzdMz_envhganzewVxoCpBMQAvD_BwE&gclsrc=aw.ds
 
@@ -60,6 +63,8 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 
 2 EURO - TWO BEARINGS (I REUSED BEARING FROM A INLINE SKATE WHEEL)
 
+
+------------------------------
 #### HOVERBOARD HARDWARE
 The hoverboard with 2 boards uses processor GD32F130C8 (instead of STM32F103 used on Niklas hoverboard) 
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/HoverboardPCBFirmware/images/Hardware_Overview_small.png )
@@ -74,12 +79,16 @@ I soldered the resistive divider(see lawnmower schematic) directly on the pcb, o
 
 I REUSED THE HOVERBOARD HARDWARE AS IT IS. I DIDN'T MODIFIED THE FRAME, I JUST ROTATED IT 180 DEGREES.
 
+
+------------------------------
 #### HOVERBOARD FIRMWARE
 the following image shows how the 3 phases changes during rotation. 
 
 Note: A complete rotation of the phases is not a complete rotation of the wheel since there are many inductors inside the motor. 
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/HoverboardPCBFirmware/images/Raumzeigerdiagramm.png )
 
+
+------------------------------
 #### FLASHING
 The firmware is built with Keil (free up to 32KByte). To build the firmware, open the Keil project file which is includes in repository. On the board, close to ARM processor, there is a debugging header with GND, 3V3, SWDIO and SWCLK. Connect GND, SWDIO and SWCLK to your SWD programmer, like the ST-Link V2.
 
@@ -87,10 +96,13 @@ The firmware is built with Keil (free up to 32KByte). To build the firmware, ope
 - To flash the processor, use the STM32 ST-LINK Utility as well, ST-Flash utility or Keil by itself.
 - Hold the powerbutton while flashing the firmware, as the controller releases the power latch and switches itself off during flashing
 
+
+------------------------------
 #### COMMUNITY
 there is a Telegram group as a free discussion platform about Hoverboards MODS. You can find it here: https://t.me/joinchat/BHWO_RKu2LT5ZxEkvUB8uw
 
 
+------------------------------
 #### NEXT THINGS THAT I WILL DO: 
 - add sensors and interlocks to algorithm,
 - create a docking station for automatic recharge, 
