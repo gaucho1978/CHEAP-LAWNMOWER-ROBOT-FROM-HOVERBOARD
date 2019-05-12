@@ -31,16 +31,12 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 
 #### BILL OF MATERIAL
 PROXIMITY SENSORS: HC-SR04 - https://www.ebay.it/itm/312495306039
+
 Arduino nano(clone): https://www.ebay.it/itm/322913230315
+
 DCDC(FOR ARDUINO AND/OR BLADE MOTOR): https://www.ebay.it/itm/122201239217
 
 
-#### NEXT things that I will do: 
-- add sensors and interlocks to algorithm,
-- create a docking station for automatic recharge, 
-- realize the mechanical structure, 
-- implement safety for automatic stopping blade 
-- implement automatic navigation algorithm.
 
 #### HOVERBOARD Hardware
 The hoverboard with 2 boards uses processor GD32F130C8 (instead of STM32F103 used on Niklas hoverboard) 
@@ -49,6 +45,13 @@ The hoverboard with 2 boards uses processor GD32F130C8 (instead of STM32F103 use
 The hoverboard hardware has two main boards, which are different equipped. They are connected via USART. Additionally there are some LED PCB connected at X1 and X2 which signalize the battery state and the error state. There is an programming connector for ST-Link/V2 and they break out GND, USART/I2C, 5V on a second pinhead.
 
 The reverse-engineered schematics of the mainboards can be found in the folder HoverboardSchematics
+in order to use  GPIO represented as "not used" on the hoverboard schematic, you need to solder some zero ohm resistors (or jumpers)   
+
+#### HOVERBOARD firmware
+the following image shows how the 3 phases changes during rotation. 
+
+Note: A complete rotation of the phases is not a complete rotation of the wheel since there are many inductors inside the motor. 
+![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/HoverboardPCBFirmware/images/Raumzeigerdiagramm.png )
 
 #### Flashing
 The firmware is built with Keil (free up to 32KByte). To build the firmware, open the Keil project file which is includes in repository. On the board, close to ARM processor, there is a debugging header with GND, 3V3, SWDIO and SWCLK. Connect GND, SWDIO and SWCLK to your SWD programmer, like the ST-Link V2.
@@ -56,3 +59,10 @@ The firmware is built with Keil (free up to 32KByte). To build the firmware, ope
 - If you never flashed your mainboard before, the controller is locked. To unlock the flash, use STM32 ST-LINK Utility or openOCD.
 - To flash the processor, use the STM32 ST-LINK Utility as well, ST-Flash utility or Keil by itself.
 - Hold the powerbutton while flashing the firmware, as the controller releases the power latch and switches itself off during flashing
+
+#### NEXT things that I will do: 
+- add sensors and interlocks to algorithm,
+- create a docking station for automatic recharge, 
+- realize the mechanical structure, 
+- implement safety for automatic stopping blade 
+- implement automatic navigation algorithm.
