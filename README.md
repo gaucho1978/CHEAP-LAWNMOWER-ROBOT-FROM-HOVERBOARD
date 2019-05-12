@@ -1,18 +1,22 @@
+You can control this lawnmower robot with a rc radiocontrol like a big rover, or let it automatically take care of your garden.
+You could also replace the radiocontrol with bluetooth receiver conneted on the slave board serial line (reference about this on Florian repository)
 
-I started my code from Florian Repository ( https://github.com/flo199213/Hoverboard-Firmware-Hack-Gen2 )
+The main feature of this lawnmower, with reference to other lawnmower robot products, is that it is able to do its work without a perimeter wire. Compared to other cheap products, it has bigger battery so it is able to take care of really big garden.
 
-Florian rewrote the firmware for hoverboards composed by 2 boards, starting from Niklas repository ( https://github.com/NiklasFauth/hoverboard-firmware-hack/ )
+Every 24 hours it cuts the garden grass then it returns to the charging station. 
 
-Niklas rewrote the firmware for hoverboards composed by a big board and sensor boards.
+It uses proximity sensors to avoid obstacles and for safety against blade touching (they reveal the distance of the robot from the ground in case someone tries to lift it, in order to stop the blade).
 
-First thing that I've done was to add PWM input to control the robot with a RC receiver, in order to let me do all the functional checks, before to implement automatic navigation algorithm.
-I used turnigy rc receiver directly connected to the board, on the unused gpio.
+It moves with reference to the start point (the place where the ground station is) knowing which path to follow (i'm planning to save inside the robot the garden morphology or the path) in order to avoid the need of perimeter wire. 
+The project is in progress. 
 
-Second thing that i've done was to add PWM output in order to control a ESC connected to a motor. The motor is connected to a blade. 
+On 12 may 2019 it can only move with rc commands cause iM waiting to receive the sensors and the chassis.
 
-Every time the robot moves, the blade starts to rotate at constant speed.
 
-Third thing that I. ve done was to make the mechanical project (you find it in the folder LawnMowerMEchanicalProject).
+------------------------------
+#### MECHANICAL CONSIDERATIONS
+
+The mechanical project is located in the folder LawnMowerMechanicalProject.
 These are some images (the base is aluminium and the cover in polycarbonate):
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/bottom1.png)
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/side.png)
@@ -20,8 +24,6 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/front.png)
 
 
-------------------------------
-#### MECHANICAL CONSIDERATIONS
 - You will find files for manufacturing alluminium plate and polycarbonate cover in the folder:
    LawnMowerMEchanicalProject/FILES FOR MANUFACTURING\PDF FORMAT
 - You will fing files for manufacturing plastic supports with 3d printer in the folder:
@@ -36,6 +38,8 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 ------------------------------
 #### BILL OF MATERIAL - TOTAL COST 120 EURO
 50 EURO - USED HOVERBOARD - https://www.mediaworld.it/product/p-742077/i-bike-kidplay-streetboard-one-hoverboard-6-5?ds_rl=1250284&ds_rl=1250284&gclid=CjwKCAjwiN_mBRBBEiwA9N-e_qMfsYSRb5w4XxsWQmA6IEDfbXj_eAiy6rWeXzdMz_envhganzewVxoCpBMQAvD_BwE&gclsrc=aw.ds
+
+20 EURO - TURNIGY 9X RADIOCONTROL OR ANY OTHER TYPE OF RC WITH PWM OUTPUT WITH AT LEAST 2 CHANNELS (ONE FOR SPEED AND ONE FOR STEERING)
 
 6 EURO - STLINK V2 PROGRAMMER (TO FLASH HOVERBOARD FIRMWARE) - https://www.ebay.it/itm/352654456738?ViewItem=&item=352654456738
 
@@ -82,19 +86,34 @@ I REUSED THE HOVERBOARD HARDWARE AS IT IS. I DIDN'T MODIFIED THE FRAME, I JUST R
 
 ------------------------------
 #### HOVERBOARD FIRMWARE
-the following image shows how the 3 phases changes during rotation. 
+I started my code from Florian Repository ( https://github.com/flo199213/Hoverboard-Firmware-Hack-Gen2 )
+
+Florian rewrote the firmware for hoverboards composed by 2 boards, starting from Niklas repository ( https://github.com/NiklasFauth/hoverboard-firmware-hack/ )
+
+Niklas rewrote the firmware for hoverboards composed by a big board and sensor boards.
+
+First thing that I've done was to add PWM input to control the robot with a RC receiver, in order to let me do all the functional checks, before to implement automatic navigation algorithm.
+I used turnigy rc receiver directly connected to the board, on the unused gpio.
+
+Second thing that i've done was to add PWM output in order to control a ESC connected to a motor. The motor is connected to a blade. 
+
+Every time the robot moves, the blade starts to rotate at constant speed.
+
+The following image shows how the 3 phases changes during rotation. 
 
 Note: A complete rotation of the phases is not a complete rotation of the wheel since there are many inductors inside the motor. 
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/HoverboardPCBFirmware/images/Raumzeigerdiagramm.png )
 
-THE FILE "DEFINES" AND "CONFIG" CONTAINS MAIN PARAMETERS 
-THE FILE "IT" CONTAINS TIMING FUNCTIONS AND INTERRUPTS (PERIODIC CHECKS,  SERIAL LINE INTERRUPTS, SYSTEM TICKS)
-THE FILE "BDLC" CONTROLS THE HOVERBOARD MOTORS
-THE FILE "COMMSSTEERINGPWM" RECEIVES THE RC PWM SIGNALS TO MOVE THE HOVERBOARD IN SPEED AND DIRECTION.
-THE FILE "COMMSMASTERSLAVE" SENDS AND RECEIVE DATA BETWEEN MASTER AND SLAVE BOARD
-THE FILE "LED" CONTROLS THE GPIO OUTPUT GENERALLY CONNETED TO LEDS TO SHOW BATTERY STATUS ETC,ETC.
-THE FILE "COMMSACTUATOR"GENERATES THE PWM USED TO CONTROL THE MOTOR CONNECTED TO THE BLADE.
-THE FILE "MAIN" IS THE MAIN LOOP OF THE HOVERBOARD FIRMWARE THAT CALLS ALL THE ROUTINES IN SEQUENCE.
+FIRMWARE STRUCTURE:
+
+-THE FILE "DEFINES" AND "CONFIG" CONTAINS MAIN PARAMETERS 
+-THE FILE "IT" CONTAINS TIMING FUNCTIONS AND INTERRUPTS (PERIODIC CHECKS,  SERIAL LINE INTERRUPTS, SYSTEM TICKS)
+-THE FILE "BDLC" CONTROLS THE HOVERBOARD MOTORS
+-THE FILE "COMMSSTEERINGPWM" RECEIVES THE RC PWM SIGNALS TO MOVE THE HOVERBOARD IN SPEED AND DIRECTION.
+-THE FILE "COMMSMASTERSLAVE" SENDS AND RECEIVE DATA BETWEEN MASTER AND SLAVE BOARD
+-THE FILE "LED" CONTROLS THE GPIO OUTPUT GENERALLY CONNETED TO LEDS TO SHOW BATTERY STATUS ETC,ETC.
+-THE FILE "COMMSACTUATOR"GENERATES THE PWM USED TO CONTROL THE MOTOR CONNECTED TO THE BLADE.
+-THE FILE "MAIN" IS THE MAIN LOOP OF THE HOVERBOARD FIRMWARE THAT CALLS ALL THE ROUTINES IN SEQUENCE.
 
 
 
