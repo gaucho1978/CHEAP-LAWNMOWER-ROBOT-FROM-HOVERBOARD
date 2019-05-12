@@ -16,7 +16,6 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/top.png)
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/front.png)
 
-
 NEXT things that I will do: 
 - add sensors and interlocks to algorithm,
 - create a docking station for automatic recharge, 
