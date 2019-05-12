@@ -1,5 +1,3 @@
-#### Community
-there is a Telegram group as a free discussion platform about Hoverboards MODS. You can find it here: https://t.me/joinchat/BHWO_RKu2LT5ZxEkvUB8uw
 
 I started my code from Florian Repository ( https://github.com/flo199213/Hoverboard-Firmware-Hack-Gen2 )
 
@@ -66,9 +64,14 @@ The firmware is built with Keil (free up to 32KByte). To build the firmware, ope
 - To flash the processor, use the STM32 ST-LINK Utility as well, ST-Flash utility or Keil by itself.
 - Hold the powerbutton while flashing the firmware, as the controller releases the power latch and switches itself off during flashing
 
+#### Community
+there is a Telegram group as a free discussion platform about Hoverboards MODS. You can find it here: https://t.me/joinchat/BHWO_RKu2LT5ZxEkvUB8uw
+
+
 #### NEXT things that I will do: 
 - add sensors and interlocks to algorithm,
 - create a docking station for automatic recharge, 
 - realize the mechanical structure, 
 - implement safety for automatic stopping blade 
 - implement automatic navigation algorithm.
+
