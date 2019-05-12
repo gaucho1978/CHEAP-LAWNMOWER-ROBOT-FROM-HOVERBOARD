@@ -15,6 +15,19 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/side.png)
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/top.png)
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/front.png)
+The blade support shall be 3d printed, then 4 cutter blades are screwed on the 4 edges of the plastic support. You could also purchase a blade for lawnmower online.
+
+the shaft to fix the blade is obtained modifing a screw.
+the shaft is maintained in its vertical position through bearings. 
+The bearing is mainteined in its position through a 3d printed support interfacing bearing and the alluminium plate.
+I used autolock bolts to fix the blade on the shaft.
+You will find files for manufacturing alluminium plate and polycarbonate cover in the folder:
+LawnMowerMEchanicalProject/FILES FOR MANUFACTURING\PDF FORMAT
+
+You will fing files for manufacturing plastic supports with 3d printer in the folder:
+LawnMowerMEchanicalProject/FILES FOR MANUFACTURING\3DPrinted supports
+
+
 
 NEXT things that I will do: 
 - add sensors and interlocks to algorithm,
