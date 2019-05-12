@@ -1,5 +1,5 @@
 Dependencies for Project 'Hoverboard', Target 'Target 1': (DO NOT MODIFY !)
-F (.\Src\main.c)(0x5CCEA37D)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Src\main.c)(0x5CD1C13C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -225,7 +225,7 @@ I (Src\../Inc/defines.h)(0x5CCE9B7B)
 I (Src\../Inc/bldc.h)(0x5CB79476)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
-F (.\Src\commsMasterSlave.c)(0x5CCE9B7B)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsmasterslave.o --omf_browse .\objects\commsmasterslave.crf --depend .\objects\commsmasterslave.d)
+F (.\Src\commsMasterSlave.c)(0x5CD1C13C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsmasterslave.o --omf_browse .\objects\commsmasterslave.crf --depend .\objects\commsmasterslave.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -287,7 +287,7 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (Src\../Inc/led.h)(0x5CB79477)
 I (Src\../Inc/../Inc/config.h)(0x5CC786CB)
 I (Src\../Inc/defines.h)(0x5CCE9B7B)
-F (.\Src\commsActuator.c)(0x5CCEA37D)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsactuator.o --omf_browse .\objects\commsactuator.crf --depend .\objects\commsactuator.d)
+F (.\Src\commsActuator.c)(0x5CD1C13C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsactuator.o --omf_browse .\objects\commsactuator.crf --depend .\objects\commsactuator.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -355,7 +355,7 @@ I (Src\../Inc/defines.h)(0x5CCE9B7B)
 I (Src\../Inc/bldc.h)(0x5CB79476)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
-F (.\Src\commsSteeringPWM.c)(0x5CCEA37D)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commssteeringpwm.o --omf_browse .\objects\commssteeringpwm.crf --depend .\objects\commssteeringpwm.d)
+F (.\Src\commsSteeringPWM.c)(0x5CD1C3AA)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commssteeringpwm.o --omf_browse .\objects\commssteeringpwm.crf --depend .\objects\commssteeringpwm.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)

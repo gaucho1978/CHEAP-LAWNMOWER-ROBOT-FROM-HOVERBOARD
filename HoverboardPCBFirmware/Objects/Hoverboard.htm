@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Hoverboard.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Hoverboard.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun May 05 10:49:49 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 07 19:43:32 2019
 <BR><P>
 <H3>Maximum Stack Usage =        264 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -243,7 +243,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[5a]"></a>ShowBatteryState</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[5a]"></a>ShowBatteryState</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ShowBatteryState
 </UL>
 <BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_bit_write
@@ -611,7 +611,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Channel1_2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[c4]"></a>CheckUSARTMasterSlaveInput</STRONG> (Thumb, 106 bytes, Stack size 32 bytes, commsmasterslave.o(.text))
+<P><STRONG><a name="[c4]"></a>CheckUSARTMasterSlaveInput</STRONG> (Thumb, 118 bytes, Stack size 32 bytes, commsmasterslave.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = CheckUSARTMasterSlaveInput &rArr; CalcCRC
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalcCRC
@@ -638,13 +638,16 @@ Global Symbols
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ShutOff
 </UL>
 
-<P><STRONG><a name="[b8]"></a>UpdateActuatorOutput</STRONG> (Thumb, 114 bytes, Stack size 24 bytes, commsactuator.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = UpdateActuatorOutput &rArr; __aeabi_d2iz
+<P><STRONG><a name="[b8]"></a>UpdateActuatorOutput</STRONG> (Thumb, 144 bytes, Stack size 24 bytes, commsactuator.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = UpdateActuatorOutput &rArr; __aeabi_ddiv
 </UL>
 <BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_bit_write
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_BRK_UP_TRG_COM_IRQHandler
 </UL>
@@ -657,7 +660,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER13_IRQHandler
 </UL>
 
-<P><STRONG><a name="[b7]"></a>CheckPWMRemoteControlInput</STRONG> (Thumb, 562 bytes, Stack size 32 bytes, commssteeringpwm.o(.text))
+<P><STRONG><a name="[b7]"></a>CheckPWMRemoteControlInput</STRONG> (Thumb, 560 bytes, Stack size 32 bytes, commssteeringpwm.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = CheckPWMRemoteControlInput &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetTimeout
@@ -1746,7 +1749,8 @@ Global Symbols
 <P><STRONG><a name="[6e]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
+<BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateActuatorOutput
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalculateBLDC
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1789,8 +1793,7 @@ Global Symbols
 <P><STRONG><a name="[c5]"></a>__aeabi_d2iz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateActuatorOutput
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
+<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
 </UL>
 
 <P><STRONG><a name="[e8]"></a>_dfix</STRONG> (Thumb, 94 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix), UNUSED)
@@ -1798,8 +1801,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[66]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
-<BR><BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateActuatorOutput
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalculateBLDC
+<BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalculateBLDC
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1873,7 +1875,8 @@ Global Symbols
 <P><STRONG><a name="[6a]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2d
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
+<BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateActuatorOutput
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalculateBLDC
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1932,13 +1935,15 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[68]"></a>__aeabi_i2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$fflt))
-<BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR><BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateActuatorOutput
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[1e4]"></a>_fflt</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$fflt), UNUSED)
 
 <P><STRONG><a name="[79]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
-<BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalculateBLDC
+<BR><BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateActuatorOutput
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalculateBLDC
 </UL>
 
 <P><STRONG><a name="[1e5]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)
@@ -1989,7 +1994,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[74]"></a>__aeabi_cfrcmple</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, frleqf.o(x$fpl$frleqf))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
+<BR><BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateActuatorOutput
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckPWMRemoteControlInput
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalculateBLDC
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
