@@ -1,3 +1,6 @@
+#### Community
+there is a Telegram group as a free discussion platform about Hoverboards MODS. You can find it here: https://t.me/joinchat/BHWO_RKu2LT5ZxEkvUB8uw
+
 I started my code from Florian Repository ( https://github.com/flo199213/Hoverboard-Firmware-Hack-Gen2 )
 
 Florian rewrote the firmware for hoverboards composed by 2 boards, starting from Niklas repository ( https://github.com/NiklasFauth/hoverboard-firmware-hack/ )
@@ -45,7 +48,10 @@ The hoverboard with 2 boards uses processor GD32F130C8 (instead of STM32F103 use
 The hoverboard hardware has two main boards, which are different equipped. They are connected via USART. Additionally there are some LED PCB connected at X1 and X2 which signalize the battery state and the error state. There is an programming connector for ST-Link/V2 and they break out GND, USART/I2C, 5V on a second pinhead.
 
 The reverse-engineered schematics of the mainboards can be found in the folder HoverboardSchematics
-in order to use  GPIO represented as "not used" on the hoverboard schematic, you need to solder some zero ohm resistors (or jumpers)   
+
+In order to use  GPIO represented as "not used" on the hoverboard schematic, you need to solder some zero ohm resistors (or jumpers) (see schematic).
+
+I soldered the resistive divider(see lawnmower schematic) directly on the pcb, on the free pads related to  missing components. this way the connection to the rc receiver becomes simple as few wires. 
 
 #### HOVERBOARD firmware
 the following image shows how the 3 phases changes during rotation. 
