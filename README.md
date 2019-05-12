@@ -87,6 +87,16 @@ the following image shows how the 3 phases changes during rotation.
 Note: A complete rotation of the phases is not a complete rotation of the wheel since there are many inductors inside the motor. 
 ![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/HoverboardPCBFirmware/images/Raumzeigerdiagramm.png )
 
+THE FILE "DEFINES" AND "CONFIG" CONTAINS MAIN PARAMETERS 
+THE FILE "IT" CONTAINS TIMING FUNCTIONS AND INTERRUPTS (PERIODIC CHECKS,  SERIAL LINE INTERRUPTS, SYSTEM TICKS)
+THE FILE "BDLC" CONTROLS THE HOVERBOARD MOTORS
+THE FILE "COMMSSTEERINGPWM" RECEIVES THE RC PWM SIGNALS TO MOVE THE HOVERBOARD IN SPEED AND DIRECTION.
+THE FILE "COMMSMASTERSLAVE" SENDS AND RECEIVE DATA BETWEEN MASTER AND SLAVE BOARD
+THE FILE "LED" CONTROLS THE GPIO OUTPUT GENERALLY CONNETED TO LEDS TO SHOW BATTERY STATUS ETC,ETC.
+THE FILE "COMMSACTUATOR"GENERATES THE PWM USED TO CONTROL THE MOTOR CONNECTED TO THE BLADE.
+THE FILE "MAIN" IS THE MAIN LOOP OF THE HOVERBOARD FIRMWARE THAT CALLS ALL THE ROUTINES IN SEQUENCE.
+
+
 
 ------------------------------
 #### FLASHING
@@ -96,6 +106,9 @@ The firmware is built with Keil (free up to 32KByte). To build the firmware, ope
 - To flash the processor, use the STM32 ST-LINK Utility as well, ST-Flash utility or Keil by itself.
 - Hold the powerbutton while flashing the firmware, as the controller releases the power latch and switches itself off during flashing
 
+NOTE: I USE TO UNPLUG THE HOVERBOARD BATTERY AND TO PLUG THE STLINK PROGRAMMER (INCLUDED 3,3VOLT PIN), THEN TO FLASH THE FW USING KEIL. THIS WAY YOU DON'T NEED TO LEAVE PRESSED THE POWER BUTTON.
+
+NOTE2: ONE BOARD IS MASTER THE OTHER IS SLAVE. BEFORE TO FLASH THE FW, SET THE FIRMWARE AS MASTER OR SLAVE IN THE CONFIG.H AND RECOMPILE THE FIRMWARE.
 
 ------------------------------
 #### COMMUNITY
