@@ -31,14 +31,34 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 - I used autolock bolts to fix the blade on the shaft.
 
 
-#### BILL OF MATERIAL
-PROXIMITY SENSORS: HC-SR04 - https://www.ebay.it/itm/312495306039
+#### BILL OF MATERIAL - TOTAL COST 120 EURO
+50 EURO - USED HOVERBOARD - https://www.mediaworld.it/product/p-742077/i-bike-kidplay-streetboard-one-hoverboard-6-5?ds_rl=1250284&ds_rl=1250284&gclid=CjwKCAjwiN_mBRBBEiwA9N-e_qMfsYSRb5w4XxsWQmA6IEDfbXj_eAiy6rWeXzdMz_envhganzewVxoCpBMQAvD_BwE&gclsrc=aw.ds
 
-Arduino nano(clone): https://www.ebay.it/itm/322913230315
+6 EURO - STLINK V2 PROGRAMMER (TO FLASH HOVERBOARD FIRMWARE) - https://www.ebay.it/itm/352654456738?ViewItem=&item=352654456738
 
-DCDC(FOR ARDUINO AND/OR BLADE MOTOR): https://www.ebay.it/itm/122201239217
+5 EURO - FIVE PROXIMITY SENSORS HC-SR04 - https://www.ebay.it/itm/312495306039
 
+2 EURO - Arduino nano(clone): https://www.ebay.it/itm/322913230315
 
+1 EURO - DCDC(FOR ARDUINO AND/OR BLADE MOTOR): https://www.ebay.it/itm/122201239217
+
+10 EURO - MOTOR FOR BLADE (I REUSED MOTOR+ESC FROM A DJI S1000 MULTICOPTER, BUT YOU CAN BUY USED MOTOR FROM ELECTRIC WINDOWS OF A CAR AND ADAPT IT)
+
+10 EURO - TWO 3D PRINTED SUPPORTS FOR BEARING, ONE 3D PRINTED SUPPORT FOR BLADE, AND ONE 3D PRINTED SUPPORT FOR BOLT CAP TO BE MOUNTED CLOSE TO THE BLADE  (I PRINTED THEM FOR FREE WITH MY PRINTER)
+
+1 EURO - FOUR BLADES FOR CUTTER (I FOUND THEM IN A LOCAL HARDWARE STORE (OBI))
+
+10 EURO - POLYCARBONATE OR PLEXIGLASS COVER (I FOUND PIECE OF POLYCARBONATE FOR FREE )
+
+10 EURO - ALUMINIUM OR IRON BASE (I FOUND ALUMINIUM PLATE FOR FREE)
+
+5 EURO - SCREWS AND BOLTS
+
+5 EURO - TWO ROTATING WHEELS 66mm HEIGHT (I FOUND THEM IN A LOCAL CHINESE SHOP)
+
+2 EURO - PANIC BUTTON - https://www.ebay.it/itm/Rosso-fungo-Cap-1-NO-1-NC-ferma-emergenza-Pulsante-interruttore-DPST-660V-10A/123270871363?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649
+
+2 EURO - TWO BEARINGS (I REUSED BEARING FROM A INLINE SKATE WHEEL)
 
 #### HOVERBOARD Hardware
 The hoverboard with 2 boards uses processor GD32F130C8 (instead of STM32F103 used on Niklas hoverboard) 
@@ -51,6 +71,8 @@ The reverse-engineered schematics of the mainboards can be found in the folder H
 In order to use  GPIO represented as "not used" on the hoverboard schematic, you need to solder some zero ohm resistors (or jumpers) (see schematic).
 
 I soldered the resistive divider(see lawnmower schematic) directly on the pcb, on the free pads related to  missing components. this way the connection to the rc receiver becomes simple as few wires. 
+
+I REUSED THE HOVERBOARD HARDWARE AS IT IS. I DIDN'T MODIFIED THE FRAME, I JUST ROTATED IT 180 DEGREES.
 
 #### HOVERBOARD firmware
 the following image shows how the 3 phases changes during rotation. 
