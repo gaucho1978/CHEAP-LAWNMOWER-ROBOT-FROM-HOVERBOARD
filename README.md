@@ -18,16 +18,16 @@ On 12 may 2019 it can only move with rc commands cause iM waiting to receive the
 
 The mechanical project is located in the folder LawnMowerMechanicalProject.
 These are some images (the base is aluminium and the cover in polycarbonate):
-![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/bottom1.png)
-![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/side.png)
-![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/top.png)
-![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/front.png)
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/bottom1.png)
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/side.png)
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/top.png)
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/front.png)
 
 
 - You will find files for manufacturing alluminium plate and polycarbonate cover in the folder:
-   LawnMowerMEchanicalProject/FILES FOR MANUFACTURING\PDF FORMAT
+   LawnMowerMEchanicalProject/FILES FOR MANUFACTURING/PDF FORMAT
 - You will fing files for manufacturing plastic supports with 3d printer in the folder:
-   LawnMowerMEchanicalProject/FILES FOR MANUFACTURING\3DPrinted supports
+   LawnMowerMEchanicalProject/FILES FOR MANUFACTURING/3DPrinted supports
 - The blade support shall be 3d printed, then 4 cutter blades are screwed on the 4 edges of the plastic support. You could also purchase a blade for lawnmower online.
 - The shaft to fix the blade is obtained modifing a screw.
 - The shaft is maintained in its vertical position through bearings. 
@@ -71,7 +71,8 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 ------------------------------
 #### HOVERBOARD HARDWARE
 The hoverboard with 2 boards uses processor GD32F130C8 (instead of STM32F103 used on Niklas hoverboard) 
-![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/HoverboardPCBFirmware/images/Hardware_Overview_small.png )
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/HoverboardPCBFirmware/images/Hardware_Overview_small.png )
+
 
 The hoverboard hardware has two main boards, which are different equipped. They are connected via USART. Additionally there are some LED PCB connected at X1 and X2 which signalize the battery state and the error state. There is an programming connector for ST-Link/V2 and they break out GND, USART/I2C, 5V on a second pinhead.
 
@@ -102,7 +103,7 @@ Every time the robot moves, the blade starts to rotate at constant speed.
 The following image shows how the 3 phases changes during rotation. 
 
 Note: A complete rotation of the phases is not a complete rotation of the wheel since there are many inductors inside the motor. 
-![otter](https://github.com/gaucho1978/LAWNMOWER-ROBOT-from-Hoverboard-/blob/master/HoverboardPCBFirmware/images/Raumzeigerdiagramm.png )
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/HoverboardPCBFirmware/images/Raumzeigerdiagramm.png )
 
 FIRMWARE STRUCTURE:
 
