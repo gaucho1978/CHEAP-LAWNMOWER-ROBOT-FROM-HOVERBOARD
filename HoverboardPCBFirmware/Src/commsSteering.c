@@ -61,7 +61,7 @@ void CheckUSARTSteerInput(uint8_t u8USARTBuffer[]);
 
 extern int32_t steer;
 extern int32_t speed;
-
+extern uint8_t Accelerometer_X_High;
 //----------------------------------------------------------------------------
 // Send frame to steer device
 //----------------------------------------------------------------------------
@@ -77,14 +77,14 @@ void SendSteerDevice(void)
 	buffer[index++] = '/';
 	
 	#ifdef DEBUG_ENABLED
-	//only for debug, send speed and steer via serial port:
+		/*
+		//only for debug, send speed and steer via serial port:
 		buffer[index++] = 'S';
 		buffer[index++] = 'p';
 		buffer[index++] = 'e';
 		buffer[index++] = 'e';
 		buffer[index++] = 'd';
 		buffer[index++] = ':';	
-		
 		sprintf(charVal, "%05d", speed);
 		buffer[index++] = charVal[0];
 		buffer[index++] = charVal[1];
@@ -106,6 +106,33 @@ void SendSteerDevice(void)
 		buffer[index++] = charVal[2];
 		buffer[index++] = charVal[3];
 		buffer[index++] = charVal[4];
+		*/
+		buffer[index++] = 'A';
+		buffer[index++] = 'X';
+		buffer[index++] = ':';
+		sprintf(charVal, "%05d", Accelerometer_X_High);
+		buffer[index++] = charVal[0];
+		buffer[index++] = charVal[1];
+		buffer[index++] = charVal[2];
+		buffer[index++] = charVal[3];
+		buffer[index++] = charVal[4];
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
+		buffer[index++] = '-';
 	#endif
 	buffer[index++] = '\n';
 	

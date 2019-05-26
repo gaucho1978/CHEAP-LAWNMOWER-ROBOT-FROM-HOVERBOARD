@@ -35,3 +35,4 @@
 .\objects\it.o: Src\../Inc/commsInterlocks.h
 .\objects\it.o: Src\../Inc/commsActuator.h
 .\objects\it.o: Src\../Inc/commsBluetooth.h
+.\objects\it.o: Src\../Inc/commsAccelerometer.h

@@ -15,6 +15,9 @@
 
 extern int32_t steer;
 extern int32_t speed;
+int32_t tmpSpeed;
+int32_t tmpSteer;
+
 extern int32_t actuatorSpeed;
 
 
@@ -39,7 +42,13 @@ void CheckPWMRemoteControlInput(void)
 		previousPWMSpeedSignalLevel=RESET;
 		// Calculate result speed value -1000 to 1000
 		// rc_speed_delay shall be between 1000 and 2000 microseconds.
-		speed = (int16_t)CLAMP((rc_speed_delay-1500)*2.4, -1000, 1000);
+		tmpSpeed = (int16_t)CLAMP((rc_speed_delay-1500)*0.5, -1000, 1000); //replace 0.5 with 2.4 to reach maximum speed
+		if(speed<tmpSpeed){ //make acceleration smooth
+			speed=speed+20;
+		}else{
+			speed=speed-20;
+		}
+		
 		
 		//if we are moving, controlled by RC, activate PWM output to control the blade of the lawnmower 
 		if(speed>50 || speed<-50 ){
@@ -57,7 +66,13 @@ void CheckPWMRemoteControlInput(void)
 		previousPWMSteerSignalLevel=RESET;
 		// Calculate result speed value -1000 to 1000
 		// rc_steer_delay shall be between 1000 and 2000 microseconds.
-		steer = -(int16_t)CLAMP((rc_steer_delay-1500)*2.4, -1000, 1000);
+		tmpSteer = -(int16_t)CLAMP((rc_steer_delay-1500)*2.4, -1000, 1000);
+		//if(steer<tmpSteer){ //make steer command smooth
+		//	steer=steer+20;
+		//}else{
+		//	steer=steer-20;
+		//}
+		steer=tmpSteer;
     // Reset the pwm timout to avoid stopping motors ONLY ON SPEED. NOT NEEDED ON STEER
 		//ResetTimeout();
 		rc_steer_delay=0;

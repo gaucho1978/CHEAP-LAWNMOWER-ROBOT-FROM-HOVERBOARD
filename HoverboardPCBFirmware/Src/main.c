@@ -42,6 +42,8 @@
 #include "../Inc/commsSteeringPWM.h"
 #include "../Inc/commsInterlocks.h"
 #include "../Inc/commsBluetooth.h"
+#include "../Inc/commsAccelerometer.h"
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
@@ -52,6 +54,9 @@
 int32_t steer = 0; 												// global variable for steering. -1000 to 1000
 int32_t speed = 0; 												// global variable for speed.    -1000 to 1000
 int32_t actuatorSpeed = 0;								// actuator(lawnmower motor blade) speed. 0 to 1000
+
+uint8_t Accelerometer_X_High=0;
+
 FlagStatus panicButtonPressed = RESET;		//global variable. SET when pressed.
 FlagStatus it_is_Raining = RESET;					//global variable. SET when raining.
 	
@@ -289,14 +294,12 @@ int main (void)
   SystemCoreClockUpdate();
   SysTick_Config(SystemCoreClock / 100);
 	
-#ifdef DEBUG_ENABLED
 	// Init watchdog
 	if (Watchdog_init() == ERROR)
 	{
 		// If an error accours with watchdog initialization do not start device
 		while(1);
 	}
-#endif
 	
 	// Init Interrupts
 	Interrupt_init();
@@ -312,7 +315,11 @@ int main (void)
 
 	// Init usart master slave
 	USART_MasterSlave_init();
-	
+
+	#ifdef MASTER	
+		//init i2c that communicates with accelerometer
+		I2C_Accelerometer_init();
+	#endif
 	// Init ADC
 	ADC_init();
 	
@@ -348,10 +355,11 @@ int main (void)
 #ifdef MASTER
 		steerCounter++;	
 		#ifdef DEBUG_ENABLED
-		if ((steerCounter % 40) == 0)
+		if ((steerCounter % 25) == 0)
 		{	
 			// send steering data
 			SendSteerDevice();
+			GetAccelerometerData();
 		}
 		#endif
 		#ifndef DEBUG_ENABLED

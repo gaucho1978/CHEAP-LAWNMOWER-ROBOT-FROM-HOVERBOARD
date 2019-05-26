@@ -71,6 +71,8 @@ void PWM_init(void);
 //----------------------------------------------------------------------------
 void ADC_init(void);
 
+//int i2c to communicate with accelerometer
+void I2C_Accelerometer_init(void);
 //----------------------------------------------------------------------------
 // Initializes the usart master slave
 //----------------------------------------------------------------------------

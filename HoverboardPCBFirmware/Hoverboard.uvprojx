@@ -442,6 +442,11 @@
               <FileType>1</FileType>
               <FilePath>.\Src\commsSteeringPWM.c</FilePath>
             </File>
+            <File>
+              <FileName>commsAccelerometer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\commsAccelerometer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -511,6 +516,11 @@
               <FileName>commsSteeringPWM.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Inc\commsSteeringPWM.h</FilePath>
+            </File>
+            <File>
+              <FileName>commsAccelerometer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Inc\commsAccelerometer.h</FilePath>
             </File>
           </Files>
         </Group>

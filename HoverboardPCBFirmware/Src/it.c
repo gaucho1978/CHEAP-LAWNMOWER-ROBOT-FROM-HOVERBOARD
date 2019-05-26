@@ -40,6 +40,7 @@
 #include "../Inc/commsInterlocks.h"
 #include "../Inc/commsActuator.h"
 #include "../Inc/commsBluetooth.h"
+#include "../Inc/commsAccelerometer.h"
 
 uint32_t msTicks;
 uint32_t timeoutCounter_ms = 0;
@@ -118,6 +119,7 @@ void TIMER13_IRQHandler(void)
 #ifdef MASTER
 			//READ interlocks
 			checkInterlockInputs();
+			//GetAccelerometerData();
 #endif
 	
 	

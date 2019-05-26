@@ -11,6 +11,7 @@
 ".\objects\commsactuator.o"
 ".\objects\commsinterlocks.o"
 ".\objects\commssteeringpwm.o"
+".\objects\commsaccelerometer.o"
 ".\objects\gd32f1x0_adc.o"
 ".\objects\gd32f1x0_dbg.o"
 ".\objects\gd32f1x0_dma.o"

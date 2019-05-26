@@ -47,6 +47,9 @@
 #define LOWER_LED_PIN GPIO_PIN_0
 #define LOWER_LED_PORT GPIOA
 
+#define I2C_ACCELEROMETER_ADDRESS 0xD0 //( 0x68 + one bit)
+#define I2C_OWN_ADDRESS 0x72
+
 // Mosfet output - On master board this is the lawnmower blade motor pwm output
 #define MOSFET_OUT_PIN GPIO_PIN_13
 #define MOSFET_OUT_PORT GPIOC

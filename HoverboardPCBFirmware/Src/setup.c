@@ -214,6 +214,25 @@ void GPIO_init(void)
 	gpio_af_set(USART_STEER_COM_TX_PORT, GPIO_AF_0, USART_STEER_COM_TX_PIN);
 	gpio_af_set(USART_STEER_COM_RX_PORT, GPIO_AF_0, USART_STEER_COM_RX_PIN);
 	
+	
+	
+	//Init I2C communication to accelerometer
+	// enable I2C0 clock 
+  rcu_periph_clock_enable(RCU_I2C0);
+  // connect PB8 to I2C0_SCL 
+  gpio_af_set(GPIOB, GPIO_AF_1, GPIO_PIN_8);
+  // connect PB9 to I2C0_SDA 
+  gpio_af_set(GPIOB, GPIO_AF_1, GPIO_PIN_9);
+	
+	gpio_mode_set(GPIOB, GPIO_MODE_AF, GPIO_PUPD_PULLUP,GPIO_PIN_8);
+  gpio_output_options_set(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ,GPIO_PIN_8);
+  gpio_mode_set(GPIOB, GPIO_MODE_AF, GPIO_PUPD_PULLUP,GPIO_PIN_9);
+  gpio_output_options_set(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_50MHZ,GPIO_PIN_9);
+	/*
+	
+	*/
+	
+	
 #ifdef MASTER	
 	// Init buzzer
 	gpio_mode_set(BUZZER_PORT , GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, BUZZER_PIN);	
@@ -400,6 +419,18 @@ void ADC_init(void)
 	// Set ADC to scan mode
 	adc_special_function_config(ADC_SCAN_MODE, ENABLE);
 }
+
+void I2C_Accelerometer_init(void){
+	// configure I2C0 clock 
+	i2c_clock_config(I2C0, 100000, I2C_DTCY_2);
+	// configure I2C0 address 
+	i2c_mode_addr_config(I2C0, I2C_I2CMODE_ENABLE, I2C_ADDFORMAT_7BITS, I2C_OWN_ADDRESS);
+	// enable I2C0
+	i2c_enable(I2C0);
+	// enable acknowledge 
+	i2c_ack_config(I2C0, I2C_ACK_ENABLE);
+}
+
 
 //----------------------------------------------------------------------------
 // Initializes the usart master slave
