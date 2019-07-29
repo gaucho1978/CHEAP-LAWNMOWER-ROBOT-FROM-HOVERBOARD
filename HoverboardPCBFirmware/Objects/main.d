@@ -30,13 +30,14 @@
 .\objects\main.o: Src\../Inc/it.h
 .\objects\main.o: Src\../Inc/bldc.h
 .\objects\main.o: Src\../Inc/commsMasterSlave.h
-.\objects\main.o: Src\../Inc/commsSteering.h
+.\objects\main.o: Src\../Inc/commsRemote.h
 .\objects\main.o: Src\../Inc/commsSteeringPWM.h
 .\objects\main.o: Src\../Inc/commsInterlocks.h
 .\objects\main.o: Src\../Inc/commsBluetooth.h
 .\objects\main.o: Src\../Inc/commsAccelerometer.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\main.o: Src\../Inc/navigator.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\main.o: C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\arm_math.h

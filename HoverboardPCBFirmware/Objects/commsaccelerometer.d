@@ -33,3 +33,4 @@
 .\objects\commsaccelerometer.o: Src\../Inc/bldc.h
 .\objects\commsaccelerometer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\commsaccelerometer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\commsaccelerometer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

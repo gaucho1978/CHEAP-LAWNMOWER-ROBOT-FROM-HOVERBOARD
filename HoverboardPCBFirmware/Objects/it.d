@@ -30,9 +30,10 @@
 .\objects\it.o: Src\../Inc/bldc.h
 .\objects\it.o: Src\../Inc/led.h
 .\objects\it.o: Src\../Inc/commsMasterSlave.h
-.\objects\it.o: Src\../Inc/commsSteering.h
+.\objects\it.o: Src\../Inc/commsRemote.h
 .\objects\it.o: Src\../Inc/commsSteeringPWM.h
 .\objects\it.o: Src\../Inc/commsInterlocks.h
 .\objects\it.o: Src\../Inc/commsActuator.h
 .\objects\it.o: Src\../Inc/commsBluetooth.h
 .\objects\it.o: Src\../Inc/commsAccelerometer.h
+.\objects\it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

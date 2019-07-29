@@ -1,31 +1,7 @@
 /*
-* This file is part of the hoverboard-firmware-hack-V2 project. The 
-* firmware is used to hack the generation 2 board of the hoverboard.
-* These new hoverboards have no mainboard anymore. They consist of 
-* two Sensorboards which have their own BLDC-Bridge per Motor and an
-* ARM Cortex-M3 processor GD32F130C8.
-*
-* Copyright (C) 2018 Florian Staeblein
-* Copyright (C) 2018 Jakob Broemauer
-* Copyright (C) 2018 Kai Liebich
-* Copyright (C) 2018 Christoph Lehnert
-*
-* The program is based on the hoverboard project by Niklas Fauth. The 
-* structure was tried to be as similar as possible, so that everyone 
-* could find a better way through the code.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Defines the serial 232 interface of the SLAVE BOARD named REMOTE on the PCB wiring diagram.
+  the protocol was defined by Florian to connect an external steering device (bluetooth interface). 
+	The protocol is defined on the excel sheet included in the project folder
 */
 
 #include "gd32f1x0.h"
@@ -49,7 +25,7 @@ extern uint32_t hornCounter_ms;
 #define USART_BLUETOOTH_TX_BYTES 11   // Transmit byte count including start '/' and stop character '\n'
 #define USART_BLUETOOTH_RX_BYTES 11   // Receive byte count including start '/' and stop character '\n'
 
-extern uint8_t usartSteer_COM_rx_buf[USART_STEER_COM_RX_BUFFERSIZE];
+extern uint8_t usartRemote_MasterBoard_COM_rx_buf[USART_REMOTE_COM_RX_BUFFERSIZE];
 static uint8_t sBluetoothRecord = 0;
 static uint8_t sUSARTBluetoothRecordBuffer[USART_BLUETOOTH_RX_BYTES];
 static uint8_t sUSARTBluetoothRecordBufferCounter = 0;
@@ -62,7 +38,7 @@ void SendBluetoothDevice(uint8_t identifier, int16_t value);
 //----------------------------------------------------------------------------
 void UpdateUSARTBluetoothInput(void)
 {
-	uint8_t character = usartSteer_COM_rx_buf[0];
+	uint8_t character = usartRemote_MasterBoard_COM_rx_buf[0];
 	
 	// Start character is captured, start record
 	if (character == '/')
@@ -273,7 +249,7 @@ void SendBluetoothDevice(uint8_t identifier, int16_t value)
 	buffer[index++] = charVal[4];
 	buffer[index++] = '\n';
 	
-	SendBuffer(USART_STEER_COM, buffer, index);
+	SendBuffer(USART_REMOTE_COM, buffer, index);
 }
 
 #endif

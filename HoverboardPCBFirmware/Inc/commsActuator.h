@@ -1,3 +1,4 @@
+// defines the interface with the blade motor of the lawnmower (the pwm output)
 
 
 #ifndef COMMSACTUATOR_H

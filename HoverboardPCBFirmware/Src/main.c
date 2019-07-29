@@ -1,32 +1,4 @@
-/*
-* This file is part of the hoverboard-firmware-hack-V2 project. The 
-* firmware is used to hack the generation 2 board of the hoverboard.
-* These new hoverboards have no mainboard anymore. They consist of 
-* two Sensorboards which have their own BLDC-Bridge per Motor and an
-* ARM Cortex-M3 processor GD32F130C8.
-*
-* Copyright (C) 2018 Florian Staeblein
-* Copyright (C) 2018 Jakob Broemauer
-* Copyright (C) 2018 Kai Liebich
-* Copyright (C) 2018 Christoph Lehnert
-*
-* The program is based on the hoverboard project by Niklas Fauth. The 
-* structure was tried to be as similar as possible, so that everyone 
-* could find a better way through the code.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+//defines the main program loop
 
 #define ARM_MATH_CM3
 
@@ -38,11 +10,12 @@
 #include "../Inc/it.h"
 #include "../Inc/bldc.h"
 #include "../Inc/commsMasterSlave.h"
-#include "../Inc/commsSteering.h"
+#include "../Inc/commsRemote.h"
 #include "../Inc/commsSteeringPWM.h"
 #include "../Inc/commsInterlocks.h"
 #include "../Inc/commsBluetooth.h"
 #include "../Inc/commsAccelerometer.h"
+#include "../Inc/navigator.h"
 
 #include "stdio.h"
 #include "stdlib.h"
@@ -55,9 +28,17 @@ int32_t steer = 0; 												// global variable for steering. -1000 to 1000
 int32_t speed = 0; 												// global variable for speed.    -1000 to 1000
 int32_t actuatorSpeed = 0;								// actuator(lawnmower motor blade) speed. 0 to 1000
 
-uint8_t Accelerometer_X_High=0;
+float logImuArray[400]; //array of array for logging purposes
+int16_t logImuArrayCurrentIndex=0; //index for log file
 
-FlagStatus panicButtonPressed = RESET;		//global variable. SET when pressed.
+float pitchAngle=0;
+float rollAngle=0;
+float yawAngle=0;
+
+bool recordAccelerometerLog=FALSE;
+bool printAccelerometerLog=FALSE;
+
+FlagStatus panicButtonPressed = SET;		//global variable. RESET when pressed.
 FlagStatus it_is_Raining = RESET;					//global variable. SET when raining.
 	
 
@@ -288,6 +269,8 @@ int main (void)
 	float expo = 0;
 	float steerAngle = 0;
 	float xScale = 0;
+	
+	
 #endif
 	
 	//SystemClock_Config();
@@ -318,7 +301,7 @@ int main (void)
 
 	#ifdef MASTER	
 		//init i2c that communicates with accelerometer
-		I2C_Accelerometer_init();
+		I2C_IMU_init();
 	#endif
 	// Init ADC
 	ADC_init();
@@ -331,7 +314,7 @@ int main (void)
 	fwdgt_counter_reload();
 
 	// Init usart steer/bluetooth
-	USART_Steer_COM_init();
+	USART_REMOTE_COM_init();
 
 #ifdef MASTER
 	// Startup-Sound
@@ -355,18 +338,16 @@ int main (void)
 #ifdef MASTER
 		steerCounter++;	
 		#ifdef DEBUG_ENABLED
-		if ((steerCounter % 25) == 0)
+		Send_Data_over_REMOTE_serialPort_of_MasterBoard();
+		if ((steerCounter % 2) == 0)
 		{	
-			// send steering data
-			SendSteerDevice();
-			GetAccelerometerData();
 		}
 		#endif
 		#ifndef DEBUG_ENABLED
 		if ((steerCounter % 2) == 0)
 		{	
 			// Request steering data
-			SendSteerDevice();
+			Send_Data_over_REMOTE_serialPort_of_MasterBoard();
 		}
 		#endif
 		
@@ -426,6 +407,7 @@ int main (void)
 		SetPWM(pwmMaster);
 		SendSlave(-pwmSlave, enableSlave, RESET, chargeStateLowActive, sendSlaveIdentifier, sendSlaveValue);
 		
+		
 		// Increment identifier
 		sendSlaveIdentifier++;
 		if (sendSlaveIdentifier > 2)
@@ -433,6 +415,11 @@ int main (void)
 			sendSlaveIdentifier = 0;
 		}
 		
+		//if robot is touched (roll or pitch > 9 degrees, shutdown everything for safety reason
+		if((ABS(pitchAngle)>9) ||  (ABS(rollAngle)>9) ){
+			ShutOff();
+		}	
+
 		// Show green battery symbol when battery level BAT_LOW_LVL1 is reached
     if (batteryVoltage > BAT_LOW_LVL1)
 		{
@@ -470,7 +457,7 @@ int main (void)
 			ShutOff();
     }
 
-		if(panicButtonPressed==SET){
+		if(panicButtonPressed==RESET){
 			ShutOff();
     }
 		
@@ -509,10 +496,8 @@ int main (void)
 //----------------------------------------------------------------------------
 // Turns the device off
 //----------------------------------------------------------------------------
-void ShutOff(void)
-{
+void ShutOff(void){
 	int index = 0;
-
 	buzzerPattern = 0;
 	for (; index < 8; index++)
 	{

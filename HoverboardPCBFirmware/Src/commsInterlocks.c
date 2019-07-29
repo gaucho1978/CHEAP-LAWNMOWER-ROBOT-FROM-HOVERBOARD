@@ -1,3 +1,4 @@
+// defines the interlocks, connected according to lawnmower wiring diagram (panic button and rain sensor)
 
 #include "gd32f1x0.h"
 #include "../Inc/it.h"

@@ -413,11 +413,6 @@
               <FilePath>.\Src\commsBluetooth.c</FilePath>
             </File>
             <File>
-              <FileName>commsSteering.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Src\commsSteering.c</FilePath>
-            </File>
-            <File>
               <FileName>commsMasterSlave.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\commsMasterSlave.c</FilePath>
@@ -446,6 +441,16 @@
               <FileName>commsAccelerometer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\commsAccelerometer.c</FilePath>
+            </File>
+            <File>
+              <FileName>commsRemote.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\commsRemote.c</FilePath>
+            </File>
+            <File>
+              <FileName>navigator.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\navigator.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -488,11 +493,6 @@
               <FilePath>.\Inc\commsBluetooth.h</FilePath>
             </File>
             <File>
-              <FileName>commsSteering.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Inc\commsSteering.h</FilePath>
-            </File>
-            <File>
               <FileName>commsMasterSlave.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Inc\commsMasterSlave.h</FilePath>
@@ -521,6 +521,16 @@
               <FileName>commsAccelerometer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Inc\commsAccelerometer.h</FilePath>
+            </File>
+            <File>
+              <FileName>commsRemote.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Inc\commsRemote.h</FilePath>
+            </File>
+            <File>
+              <FileName>navigator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Inc\navigator.h</FilePath>
             </File>
           </Files>
         </Group>

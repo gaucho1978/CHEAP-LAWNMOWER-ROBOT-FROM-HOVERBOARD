@@ -1,3 +1,4 @@
+//defines the interface with the radio control (PWM input for speed and steer)
 
 
 #ifndef COMMSSTEERINGPWM_H

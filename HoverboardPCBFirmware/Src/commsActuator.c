@@ -1,3 +1,4 @@
+// defines the interface with the blade motor of the lawnmower (the pwm output)
 
 #include "gd32f1x0.h"
 #include "../Inc/it.h"

@@ -1,32 +1,4 @@
-/*
-* This file is part of the hoverboard-firmware-hack-V2 project. The 
-* firmware is used to hack the generation 2 board of the hoverboard.
-* These new hoverboards have no mainboard anymore. They consist of 
-* two Sensorboards which have their own BLDC-Bridge per Motor and an
-* ARM Cortex-M3 processor GD32F130C8.
-*
-* Copyright (C) 2018 Florian Staeblein
-* Copyright (C) 2018 Jakob Broemauer
-* Copyright (C) 2018 Kai Liebich
-* Copyright (C) 2018 Christoph Lehnert
-*
-* The program is based on the hoverboard project by Niklas Fauth. The 
-* structure was tried to be as similar as possible, so that everyone 
-* could find a better way through the code.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// defines the name for each input and output pin of the board and also defines some of the constants
 
 #ifndef DEFINES_H
 #define DEFINES_H
@@ -47,7 +19,7 @@
 #define LOWER_LED_PIN GPIO_PIN_0
 #define LOWER_LED_PORT GPIOA
 
-#define I2C_ACCELEROMETER_ADDRESS 0xD0 //( 0x68 + one bit)
+#define I2C_IMU_ADDRESS 0xD0 //( 0x68 + one bit)
 #define I2C_OWN_ADDRESS 0x72
 
 // Mosfet output - On master board this is the lawnmower blade motor pwm output
@@ -112,11 +84,11 @@
 #define BUTTON_PORT GPIOC
 
 // Usart steer defines
-#define USART_STEER_COM USART0
-#define USART_STEER_COM_TX_PIN GPIO_PIN_6
-#define USART_STEER_COM_TX_PORT GPIOB
-#define USART_STEER_COM_RX_PIN GPIO_PIN_7
-#define USART_STEER_COM_RX_PORT GPIOB
+#define USART_REMOTE_COM USART0
+#define USART_REMOTE_COM_TX_PIN GPIO_PIN_6
+#define USART_REMOTE_COM_TX_PORT GPIOB
+#define USART_REMOTE_COM_RX_PIN GPIO_PIN_7
+#define USART_REMOTE_COM_RX_PORT GPIOB
 
 #ifdef MASTER
 // Buzzer defins

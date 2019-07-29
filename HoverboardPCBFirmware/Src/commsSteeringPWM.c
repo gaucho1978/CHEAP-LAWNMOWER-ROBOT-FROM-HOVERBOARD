@@ -1,3 +1,4 @@
+//defines the interface with the radio control (PWM input for speed and steer)
 
 #include "gd32f1x0.h"
 #include "../Inc/it.h"

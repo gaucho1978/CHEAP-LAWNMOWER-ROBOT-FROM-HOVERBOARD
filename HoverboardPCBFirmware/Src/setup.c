@@ -1,32 +1,4 @@
-/*
-* This file is part of the hoverboard-firmware-hack-V2 project. The 
-* firmware is used to hack the generation 2 board of the hoverboard.
-* These new hoverboards have no mainboard anymore. They consist of 
-* two Sensorboards which have their own BLDC-Bridge per Motor and an
-* ARM Cortex-M3 processor GD32F130C8.
-*
-* Copyright (C) 2018 Florian Staeblein
-* Copyright (C) 2018 Jakob Broemauer
-* Copyright (C) 2018 Kai Liebich
-* Copyright (C) 2018 Christoph Lehnert
-*
-* The program is based on the hoverboard project by Niklas Fauth. The 
-* structure was tried to be as similar as possible, so that everyone 
-* could find a better way through the code.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+//initializes all interrupts, timers, digital and analog pins of the board
 
 #include "gd32f1x0.h"
 #include "../Inc/setup.h"
@@ -47,7 +19,7 @@ timer_oc_parameter_struct timerBldc_oc_parameter_struct;
 // DMA (USART) structs
 dma_parameter_struct dma_init_struct_usart;
 uint8_t usartMasterSlave_rx_buf[USART_MASTERSLAVE_RX_BUFFERSIZE];
-uint8_t usartSteer_COM_rx_buf[USART_STEER_COM_RX_BUFFERSIZE];
+uint8_t usartRemote_MasterBoard_COM_rx_buf[USART_REMOTE_COM_RX_BUFFERSIZE];
 
 // DMA (ADC) structs
 dma_parameter_struct dma_init_struct_adc;
@@ -207,12 +179,12 @@ void GPIO_init(void)
 	gpio_output_options_set(SELF_HOLD_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, SELF_HOLD_PIN);
 	
 	// Init USART0
-	gpio_mode_set(USART_STEER_COM_TX_PORT , GPIO_MODE_AF, GPIO_PUPD_PULLUP, USART_STEER_COM_TX_PIN);	
-	gpio_mode_set(USART_STEER_COM_RX_PORT , GPIO_MODE_AF, GPIO_PUPD_PULLUP, USART_STEER_COM_RX_PIN);
-	gpio_output_options_set(USART_STEER_COM_TX_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, USART_STEER_COM_TX_PIN);
-	gpio_output_options_set(USART_STEER_COM_RX_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, USART_STEER_COM_RX_PIN);	
-	gpio_af_set(USART_STEER_COM_TX_PORT, GPIO_AF_0, USART_STEER_COM_TX_PIN);
-	gpio_af_set(USART_STEER_COM_RX_PORT, GPIO_AF_0, USART_STEER_COM_RX_PIN);
+	gpio_mode_set(USART_REMOTE_COM_TX_PORT , GPIO_MODE_AF, GPIO_PUPD_PULLUP, USART_REMOTE_COM_TX_PIN);	
+	gpio_mode_set(USART_REMOTE_COM_RX_PORT , GPIO_MODE_AF, GPIO_PUPD_PULLUP, USART_REMOTE_COM_RX_PIN);
+	gpio_output_options_set(USART_REMOTE_COM_TX_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, USART_REMOTE_COM_TX_PIN);
+	gpio_output_options_set(USART_REMOTE_COM_RX_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, USART_REMOTE_COM_RX_PIN);	
+	gpio_af_set(USART_REMOTE_COM_TX_PORT, GPIO_AF_0, USART_REMOTE_COM_TX_PIN);
+	gpio_af_set(USART_REMOTE_COM_RX_PORT, GPIO_AF_0, USART_REMOTE_COM_RX_PIN);
 	
 	
 	
@@ -420,7 +392,7 @@ void ADC_init(void)
 	adc_special_function_config(ADC_SCAN_MODE, ENABLE);
 }
 
-void I2C_Accelerometer_init(void){
+void I2C_IMU_init(void){
 	// configure I2C0 clock 
 	i2c_clock_config(I2C0, 100000, I2C_DTCY_2);
 	// configure I2C0 address 
@@ -491,37 +463,37 @@ void USART_MasterSlave_init(void)
 //----------------------------------------------------------------------------
 // Initializes the usart steer/bluetooth
 //----------------------------------------------------------------------------
-void USART_Steer_COM_init(void)
+void USART_REMOTE_COM_init(void)
 {
 		// Enable ADC and DMA clock
 	rcu_periph_clock_enable(RCU_USART0);
 	rcu_periph_clock_enable(RCU_DMA);
 	
 	// Init USART for 19200 baud, 8N1
-	usart_baudrate_set(USART_STEER_COM, 19200);
-	usart_parity_config(USART_STEER_COM, USART_PM_NONE);
-	usart_word_length_set(USART_STEER_COM, USART_WL_8BIT);
-	usart_stop_bit_set(USART_STEER_COM, USART_STB_1BIT);
-	usart_oversample_config(USART_STEER_COM, USART_OVSMOD_16);
+	usart_baudrate_set(USART_REMOTE_COM, 115200);
+	usart_parity_config(USART_REMOTE_COM, USART_PM_NONE);
+	usart_word_length_set(USART_REMOTE_COM, USART_WL_8BIT);
+	usart_stop_bit_set(USART_REMOTE_COM, USART_STB_1BIT);
+	usart_oversample_config(USART_REMOTE_COM, USART_OVSMOD_16);
 	
 	// Enable both transmitter and receiver
-	usart_transmit_config(USART_STEER_COM, USART_TRANSMIT_ENABLE);
-	usart_receive_config(USART_STEER_COM, USART_RECEIVE_ENABLE);
+	usart_transmit_config(USART_REMOTE_COM, USART_TRANSMIT_ENABLE);
+	usart_receive_config(USART_REMOTE_COM, USART_RECEIVE_ENABLE);
 	
 	// Enable USART
-	usart_enable(USART_STEER_COM);
+	usart_enable(USART_REMOTE_COM);
 	
 	// Interrupt channel 1/2 enable
 	nvic_irq_enable(DMA_Channel1_2_IRQn, 2, 0);
 	
-	// Initialize DMA channel 2 for USART_STEER_COM RX
+	// Initialize DMA channel 2 for USART_REMOTE_COM RX
 	dma_deinit(DMA_CH2);
 	dma_init_struct_usart.direction = DMA_PERIPHERAL_TO_MEMORY;
-	dma_init_struct_usart.memory_addr = (uint32_t)usartSteer_COM_rx_buf;
+	dma_init_struct_usart.memory_addr = (uint32_t)usartRemote_MasterBoard_COM_rx_buf;
 	dma_init_struct_usart.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
 	dma_init_struct_usart.memory_width = DMA_MEMORY_WIDTH_8BIT;
-	dma_init_struct_usart.number = USART_STEER_COM_RX_BUFFERSIZE;
-	dma_init_struct_usart.periph_addr = USART_STEER_COM_DATA_RX_ADDRESS;
+	dma_init_struct_usart.number = USART_REMOTE_COM_RX_BUFFERSIZE;
+	dma_init_struct_usart.periph_addr = USART_REMOTE_COM_DATA_RX_ADDRESS;
 	dma_init_struct_usart.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
 	dma_init_struct_usart.periph_width = DMA_PERIPHERAL_WIDTH_8BIT;
 	dma_init_struct_usart.priority = DMA_PRIORITY_ULTRA_HIGH;
@@ -532,7 +504,7 @@ void USART_Steer_COM_init(void)
 	dma_memory_to_memory_disable(DMA_CH2);
 
 	// USART DMA enable for transmission and receive
-	usart_dma_receive_config(USART_STEER_COM, USART_DENR_ENABLE);
+	usart_dma_receive_config(USART_REMOTE_COM, USART_DENR_ENABLE);
 	
 	// Enable DMA transfer complete interrupt
 	dma_interrupt_enable(DMA_CH2, DMA_CHXCTL_FTFIE);
@@ -543,3 +515,4 @@ void USART_Steer_COM_init(void)
 	// Enable dma receive channel
 	dma_channel_enable(DMA_CH2);
 }
+
