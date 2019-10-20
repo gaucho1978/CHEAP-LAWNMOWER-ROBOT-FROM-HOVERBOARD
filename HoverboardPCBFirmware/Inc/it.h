@@ -11,6 +11,8 @@
 //----------------------------------------------------------------------------
 void ResetTimeout(void);
 
+//timer each 1000mseconds
+void TIMER_1000ms(void);
 //timer each 100mseconds
 void TIMER_100ms(void);
 //timer each 20mseconds

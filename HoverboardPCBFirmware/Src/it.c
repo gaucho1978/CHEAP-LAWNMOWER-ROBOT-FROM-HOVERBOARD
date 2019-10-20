@@ -13,13 +13,14 @@
 #include "../Inc/commsActuator.h"
 #include "../Inc/commsBluetooth.h"
 #include "../Inc/commsAccelerometer.h"
+#include "../Inc/navigator.h"
 
 uint32_t msTicks;
 uint32_t timeoutCounter_ms = 0;
 FlagStatus timedOut = SET;
 
 #ifdef SLAVE
-uint32_t hornCounter_ms = 0;
+	uint32_t hornCounter_ms = 0;
 #endif
 
 extern int32_t steer;
@@ -28,7 +29,11 @@ extern FlagStatus activateWeakening;
 extern FlagStatus beepsBackwards;
 
 uint8_t tmpLoopCounter=0;
+uint8_t tmpLoopCounter1=0;
 uint8_t tmpLoopCounter2=0;
+
+//uint16_t halfMillisecondsCount=0;
+
 //----------------------------------------------------------------------------
 // SysTick_Handler
 //----------------------------------------------------------------------------
@@ -53,6 +58,9 @@ void ResetTimeout(void)
 //----------------------------------------------------------------------------
 void TIMER13_IRQHandler(void)
 {	
+	//loops
+	//halfMillisecondsCount=halfMillisecondsCount+1;
+	
 	if (timeoutCounter_ms > TIMEOUT_MS)
 	{
 		// First timeout reset all process values
@@ -96,6 +104,8 @@ if (tmpLoopCounter == 200){
 	tmpLoopCounter=0;
 }
 
+
+
 tmpLoopCounter2++;
 if (tmpLoopCounter2 == 40){	
 	TIMER_20ms();
@@ -112,6 +122,21 @@ void TIMER_100ms(void){
 			//READ interlocks
 			checkInterlockInputs();
 	#endif
+
+	tmpLoopCounter1++;
+	if (tmpLoopCounter1 == 10){	
+		TIMER_1000ms();
+		tmpLoopCounter1=0;
+	}
+
+}
+
+void TIMER_1000ms(void){
+	#ifdef MASTER
+			//perform automatic navigation
+			checkNavigationStatus();
+	#endif
+
 
 }
 

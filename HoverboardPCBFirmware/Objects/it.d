@@ -37,3 +37,4 @@
 .\objects\it.o: Src\../Inc/commsBluetooth.h
 .\objects\it.o: Src\../Inc/commsAccelerometer.h
 .\objects\it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\it.o: Src\../Inc/navigator.h

@@ -315,6 +315,7 @@ void GetAccelerometerData(void){
 		gyroY=( (int16_t)( imuArray[2] | imuArray[3] << 8) * 0.0038)  ;
 		gyroZ=( (int16_t)( imuArray[4] | imuArray[5] << 8) * 0.0038)  ;
 		
+		
 		accelerationX=( (int16_t)( imuArray[6] | imuArray[7] << 8) * 0.000061)  ; // 2g /2^15 = 0.000061
 		accelerationY=( (int16_t)( imuArray[8] | imuArray[9] << 8) * 0.000061)  ;
 		accelerationZ=( (int16_t)( imuArray[10] | imuArray[11] << 8) * 0.000061)  ;
@@ -322,10 +323,13 @@ void GetAccelerometerData(void){
 		timestamp= (imuArray[12] + imuArray[13] *256 + imuArray[14] * 256*256 )   * 0.000039; //seconds
 		temperature=( (int16_t)( imuArray[20] | imuArray[21] << 8) * 0.00195312) +23 ;  //celsius degrees - we could set an alarm if temperature goes over 50 celsius degrees
 		
+		
 		//calculate pich
-		pitchAngle = 180 * atan((accelerationX/sqrt((accelerationY*accelerationY) + (accelerationZ*accelerationZ))))/ (M_PI);
+		//and integrate in time in order to do not consider accelerations due to speed
+		//This introduces a delay, but it is not a problem since we don't need instant knowledge of roll and pitch
+		pitchAngle = 0.95 * pitchAngle + 0.05 * 180 * atan((accelerationX/sqrt((accelerationY*accelerationY) + (accelerationZ*accelerationZ))))/ (M_PI);
 		//calculat roll
-		rollAngle = 180 * atan (accelerationY/sqrt(accelerationX*accelerationX + accelerationZ*accelerationZ))/M_PI;
+		rollAngle = 0.95 * rollAngle + 0.05 * 180 * atan (accelerationY/sqrt(accelerationX*accelerationX + accelerationZ*accelerationZ))/M_PI;
 		
 		//log memory
 		if(recordAccelerometerLog){

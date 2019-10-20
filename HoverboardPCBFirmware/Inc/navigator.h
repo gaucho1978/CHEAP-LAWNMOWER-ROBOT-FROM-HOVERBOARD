@@ -11,7 +11,10 @@
 		// Update INTERLOCK inputs
 		//----------------------------------------------------------------------------
 		void checkNavigationStatus(void);
-
+		
+		//move the lawnmower 
+		void move(bool move0Straight1Turn, int16_t cmdValue );
+	
 	#endif
 
 #endif

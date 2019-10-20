@@ -28,18 +28,23 @@
 		// ONLY DEBUG-LEVEL!!!
 		//#define BAT_LOW_LVL1     29.0
 		//#define BAT_LOW_LVL2     28.0
-		//#define BAT_LOW_DEAD     27.0
+ 		//#define BAT_LOW_DEAD     27.0
 		// ################################################################################
 	#endif
 
 	// ###### ARMCHAIR ######
-	#define FILTER_SHIFT 12 						// Low-pass filter for pwm, rank k=12
+	#define FILTER_SHIFT 7 						// Low-pass filter for pwm, rank k=12
 
 	#ifdef MASTER
 		#define SPEED_COEFFICIENT   -1
 		#define STEER_COEFFICIENT   1
 		#define REMOTE_CONTROL_PWM          //comment this line if pwm Radio CONTROL of the lawnmower is not connected
-		#define DEBUG_ENABLED			
+		#define DEBUG_ENABLED		
+		//#define TERMINAL_ENABLED 					// uncomment this line to connect a terminal on the remote port and use it as debugging terminal port. this will generate a firmware bigger than 32kB.
+		//#define TERMINAL_ENABLED_PID_TUNING // this is like TERMINAL_ENABLED but it allows just pid tuning of the slave wheel, via serial port of master board
 	#endif
-
+	
+	#define DEBUG_WITH_TRACE_ENABLED //if enabled PB3 is left free for trace purpose. with keil you can use trace to see variables in a graph
+	#define DISTANCE_BETWEEN_WHEELS 520.0f	//millimeters era 525
+	#define WHEEL_PERIMETER 542.0f //millimeters
 #endif

@@ -117,7 +117,8 @@ void CheckUSARTBluetoothInput(uint8_t USARTBuffer[])
 				break;
 			case 4:
 				// Answer with real speed of slave
-				value = realSpeed * 100;
+				value = realSpeed * 1000;
+				if (realSpeed>32.0f) value=32000;
 				break;
 			case 5:
 				// Answer with beeps backwards from master

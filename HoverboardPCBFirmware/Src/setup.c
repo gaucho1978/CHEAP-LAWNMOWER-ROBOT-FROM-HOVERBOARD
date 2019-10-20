@@ -107,10 +107,11 @@ void GPIO_init(void)
 	gpio_mode_set(LED_GREEN_PORT , GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,LED_GREEN);	
 	gpio_output_options_set(LED_GREEN_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, LED_GREEN);
 	
-	// Init red LED
-	gpio_mode_set(LED_RED_PORT , GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,LED_RED);	
-	gpio_output_options_set(LED_RED_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, LED_RED);
-	
+	#ifndef DEBUG_WITH_TRACE_ENABLED
+		// Init red LED
+		gpio_mode_set(LED_RED_PORT , GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,LED_RED);	
+		gpio_output_options_set(LED_RED_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, LED_RED);
+	#endif
 	// Init orange LED
 	gpio_mode_set(LED_ORANGE_PORT , GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,LED_ORANGE);	
 	gpio_output_options_set(LED_ORANGE_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, LED_ORANGE);
@@ -235,11 +236,11 @@ void GPIO_init(void)
 #endif
 }
 	
+
 //----------------------------------------------------------------------------
 // Initializes the PWM
 //----------------------------------------------------------------------------
-void PWM_init(void)
-{
+void PWM_init(void){
 	// Enable timer clock
 	rcu_periph_clock_enable(RCU_TIMER_BLDC);
 	

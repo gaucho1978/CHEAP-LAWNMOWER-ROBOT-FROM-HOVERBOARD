@@ -24,47 +24,51 @@
 #include "arm_math.h" 
 
 #ifdef MASTER
-int32_t steer = 0; 												// global variable for steering. -1000 to 1000
-int32_t speed = 0; 												// global variable for speed.    -1000 to 1000
-int32_t actuatorSpeed = 0;								// actuator(lawnmower motor blade) speed. 0 to 1000
 
-float logImuArray[400]; //array of array for logging purposes
-int16_t logImuArrayCurrentIndex=0; //index for log file
+	int32_t steer = 0; 												// global variable for steering. -1000 to 1000
+	int32_t speed = 0; 												// global variable for speed.    -1000 to 1000
+	int32_t actuatorSpeed = 0;								// actuator(lawnmower motor blade) speed. 0 to 1000
+	
+	float logImuArray[400]; 									//array of array for logging purposes
+	int16_t logImuArrayCurrentIndex=0; 				//index for log file
+	
+	float pitchAngle=0;
+	float rollAngle=0;
+	float yawAngle=0;
+	
+	bool recordAccelerometerLog=FALSE;
+	bool printAccelerometerLog=FALSE;
+	
+	FlagStatus panicButtonPressed = SET;			//global variable. RESET when pressed.
+	FlagStatus it_is_Raining = RESET;					//global variable. SET when raining.
+	
+	FlagStatus activateWeakening = RESET;			// global variable for weakening
+	FlagStatus beepsBackwards = RESET;  			// global variable for beeps backwards
+				
+	extern uint8_t buzzerFreq;    						// global variable for the buzzer pitch. can be 1, 2, 3, 4, 5, 6, 7...
+	extern uint8_t buzzerPattern; 						// global variable for the buzzer pattern. can be 1, 2, 3, 4, 5, 6, 7...
+				
+	extern float batteryVoltage; 							// global variable for battery voltage
+	extern float currentDC; 									// global variable for current dc
+	extern float realSpeed; 									// global variable for real Speed
+	extern bool moveBySteps;									//global variable for movements controlled in steps(=1) or classic movements controlled by speed and steer (=0)
+	extern bool moveByStepsCompleted;					//global variable. 1= movement completed.
+	extern int16_t remainingSteps;
+	extern FlagStatus timedOut;								// Timeoutvariable set by timeout timer
+	uint32_t inactivity_timeout_counter = 0;	// Inactivity counter
+	uint32_t steerCounter = 0;								// Steer counter for setting update rate
 
-float pitchAngle=0;
-float rollAngle=0;
-float yawAngle=0;
-
-bool recordAccelerometerLog=FALSE;
-bool printAccelerometerLog=FALSE;
-
-FlagStatus panicButtonPressed = SET;		//global variable. RESET when pressed.
-FlagStatus it_is_Raining = RESET;					//global variable. SET when raining.
+	void ShowBatteryState(uint32_t pin);
+	void BeepsBackwards(FlagStatus beepsBackwards);
+	void ShutOff(void);
 	
 
-FlagStatus activateWeakening = RESET;			// global variable for weakening
-FlagStatus beepsBackwards = RESET;  			// global variable for beeps backwards
-			
-extern uint8_t buzzerFreq;    						// global variable for the buzzer pitch. can be 1, 2, 3, 4, 5, 6, 7...
-extern uint8_t buzzerPattern; 						// global variable for the buzzer pattern. can be 1, 2, 3, 4, 5, 6, 7...
-			
-extern float batteryVoltage; 							// global variable for battery voltage
-extern float currentDC; 									// global variable for current dc
-extern float realSpeed; 									// global variable for real Speed
-uint8_t slaveError = 0;										// global variable for slave error
-	
-extern FlagStatus timedOut;								// Timeoutvariable set by timeout timer
-
-uint32_t inactivity_timeout_counter = 0;	// Inactivity counter
-uint32_t steerCounter = 0;								// Steer counter for setting update rate
-
-void ShowBatteryState(uint32_t pin);
-void BeepsBackwards(FlagStatus beepsBackwards);
-void ShutOff(void);
+		extern float PID_PARAM_KP;
+		extern float PID_PARAM_KI;
+		extern float PID_PARAM_KD;		
 #endif
 
-const float lookUpTableAngle[181] =  
-{
+const float lookUpTableAngle[181] =  {
   -1,
   -0.937202577,
   -0.878193767,
@@ -252,8 +256,7 @@ const float lookUpTableAngle[181] =
 //----------------------------------------------------------------------------
 // MAIN function
 //----------------------------------------------------------------------------
-int main (void)
-{
+int main (void){
 #ifdef MASTER
 	FlagStatus enable = RESET;
 	FlagStatus enableSlave = RESET;
@@ -269,8 +272,6 @@ int main (void)
 	float expo = 0;
 	float steerAngle = 0;
 	float xScale = 0;
-	
-	
 #endif
 	
 	//SystemClock_Config();
@@ -308,12 +309,15 @@ int main (void)
 	
 	// Init PWM
 	PWM_init();
-	
+
+	#ifdef SLAVE
+		PID_init();
+	#endif
 	// Device has 1,6 seconds to do all the initialization
 	// afterwards watchdog will be fired
 	fwdgt_counter_reload();
 
-	// Init usart steer/bluetooth
+	// Init remote usart
 	USART_REMOTE_COM_init();
 
 #ifdef MASTER
@@ -331,65 +335,105 @@ int main (void)
 		// Reload watchdog while button is pressed
 		fwdgt_counter_reload();
 	}
+	
 #endif
 
   while(1)
 	{
 #ifdef MASTER
 		steerCounter++;	
-		#ifdef DEBUG_ENABLED
 		Send_Data_over_REMOTE_serialPort_of_MasterBoard();
-		if ((steerCounter % 2) == 0)
-		{	
-		}
-		#endif
-		#ifndef DEBUG_ENABLED
-		if ((steerCounter % 2) == 0)
-		{	
-			// Request steering data
-			Send_Data_over_REMOTE_serialPort_of_MasterBoard();
-		}
-		#endif
-		
-		// Calculate expo rate for less steering with higher speeds
-		expo = MAP((float)ABS(speed), 0, 1000, 1, 0.5);
-		
-	  // Each speedvalue or steervalue between 50 and -50 means absolutely no pwm
-		// -> to get the device calm 'around zero speed'
-		scaledSpeed = speed < 50 && speed > -50 ? 0 : CLAMP(speed, -1000, 1000) * SPEED_COEFFICIENT;
-		scaledSteer = steer < 50 && steer > -50 ? 0 : CLAMP(steer, -1000, 1000) * STEER_COEFFICIENT * expo;
-		
-		// Map to an angle of 180 degress to 0 degrees for array access (means angle -90 to 90 degrees)
-		steerAngle = MAP((float)scaledSteer, -1000, 1000, 180, 0);
-		xScale = lookUpTableAngle[(uint16_t)steerAngle];
-
-		// Mix steering and speed value for right and left speed
-		if(steerAngle >= 90)
-		{
-			pwmSlave = CLAMP(scaledSpeed, -1000, 1000);
-			pwmMaster = CLAMP(pwmSlave / xScale, -1000, 1000);
-		}
-		else
-		{
-			pwmMaster = CLAMP(scaledSpeed, -1000, 1000);
-			pwmSlave = CLAMP(xScale * pwmMaster, -1000, 1000);
-		}
 		
 		// Read charge state
 		chargeStateLowActive = gpio_input_bit_get(CHARGE_STATE_PORT, CHARGE_STATE_PIN);
-		
 		// Enable is depending on charger is connected or not
 		enable = chargeStateLowActive;
 		
-		// Enable channel output
-		SetEnable(enable);
+		//mainLoopPeriodMilliseconds=(halfMillisecondsCount+1)/2;
+		//halfMillisecondsCount=0;
+		
+		if(moveBySteps){ //movements controlled in number of steps forward or backward
+			// Reset the pwm timout to avoid stopping motors
+			ResetTimeout();
+			// do not shutdown if movement by steps is in progress
+			inactivity_timeout_counter = 0;
+			
+			
+		}else{ //classic movements controlled by speed and steer
+			
+			// Calculate expo rate for less steering with higher speeds
+			expo = MAP((float)ABS(speed), 0, 1000, 1, 0.5);
+			
+			// Each speedvalue or steervalue between 50 and -50 means absolutely no pwm
+			// -> to get the device calm 'around zero speed'
+			scaledSpeed = speed < 50 && speed > -50 ? 0 : CLAMP(speed, -1000, 1000) * SPEED_COEFFICIENT;
+			scaledSteer = steer < 50 && steer > -50 ? 0 : CLAMP(steer, -1000, 1000) * STEER_COEFFICIENT * expo;
+			
+			// Map to an angle of 180 degress to 0 degrees for array access (means angle -90 to 90 degrees)
+			steerAngle = MAP((float)scaledSteer, -1000, 1000, 180, 0);
+			xScale = lookUpTableAngle[(uint16_t)steerAngle];
 
+			// Mix steering and speed value for right and left speed
+			if(steerAngle >= 90)
+			{
+				pwmSlave = CLAMP(scaledSpeed, -1000, 1000);
+				pwmMaster = CLAMP(pwmSlave / xScale, -1000, 1000);
+			}
+			else
+			{
+				pwmMaster = CLAMP(scaledSpeed, -1000, 1000);
+				pwmSlave = CLAMP(xScale * pwmMaster, -1000, 1000);
+			}
+			
+			
+			// Enable channel output
+			SetEnable(enable);
+
+			
+			// Set output
+			SetPWM(pwmMaster);
+			
+			
+			// Calculate inactivity timeout (Except, when charger is active -> keep device running)
+			if (ABS(pwmMaster) > 50 || ABS(pwmSlave) > 50 || !chargeStateLowActive)
+			{
+				inactivity_timeout_counter = 0;
+			}
+			else
+			{
+				inactivity_timeout_counter++;
+			}
+			
+
+		}
+		
 		// Decide if slave will be enabled
 		enableSlave = (enable == SET && timedOut == RESET) ? SET : RESET;
 		
 		// Decide which process value has to be sent
 		switch(sendSlaveIdentifier)
 		{
+			case 5:
+				#ifdef TERMINAL_ENABLED_PID_TUNING
+					sendSlaveValue = PID_PARAM_KP*10000.0;
+					break;
+				#else
+					sendSlaveIdentifier=0;
+				#endif
+			case 6:
+				#ifdef TERMINAL_ENABLED_PID_TUNING
+					sendSlaveValue = PID_PARAM_KI*10000.0;
+					break;
+				#else
+					sendSlaveIdentifier=0;
+				#endif
+			case 7:
+				#ifdef TERMINAL_ENABLED_PID_TUNING
+					sendSlaveValue = PID_PARAM_KD*10000.0;
+					break;
+				#else
+					sendSlaveIdentifier=0;
+				#endif
 			case 0:
 				sendSlaveValue = currentDC * 100;
 				break;
@@ -397,24 +441,28 @@ int main (void)
 				sendSlaveValue = batteryVoltage * 100;
 				break;
 			case 2:
-				sendSlaveValue = realSpeed * 100;
+				sendSlaveValue = realSpeed * 1000;
 				break;
-				default:
-					break;
+			case 3:
+				sendSlaveIdentifier++; //we jump case 3 since it is used just on navigator
+			case 4:
+				sendSlaveValue = remainingSteps;
+				break;
+			
+			default:
+				break;
 		}
-		
-    // Set output
-		SetPWM(pwmMaster);
+		//send data to slave board
 		SendSlave(-pwmSlave, enableSlave, RESET, chargeStateLowActive, sendSlaveIdentifier, sendSlaveValue);
-		
 		
 		// Increment identifier
 		sendSlaveIdentifier++;
-		if (sendSlaveIdentifier > 2)
+		if (sendSlaveIdentifier > 7)
 		{
 			sendSlaveIdentifier = 0;
 		}
 		
+				
 		//if robot is touched (roll or pitch > 9 degrees, shutdown everything for safety reason
 		if((ABS(pitchAngle)>9) ||  (ABS(rollAngle)>9) ){
 			ShutOff();
@@ -468,15 +516,6 @@ int main (void)
 			ShutOff();
     }
 		
-		// Calculate inactivity timeout (Except, when charger is active -> keep device running)
-    if (ABS(pwmMaster) > 50 || ABS(pwmSlave) > 50 || !chargeStateLowActive)
-		{
-      inactivity_timeout_counter = 0;
-    }
-		else
-		{
-      inactivity_timeout_counter++;
-    }
 		
 		// Shut off device after INACTIVITY_TIMEOUT in minutes
     if (inactivity_timeout_counter > (INACTIVITY_TIMEOUT * 60 * 1000) / (DELAY_IN_MAIN_LOOP + 1))
@@ -484,6 +523,7 @@ int main (void)
       ShutOff();
     }
 #endif	
+	
 
 		Delay(DELAY_IN_MAIN_LOOP);
 		
@@ -529,9 +569,11 @@ void ShutOff(void){
 //----------------------------------------------------------------------------
 void ShowBatteryState(uint32_t pin)
 {
-	// gpio_bit_write(LED_GREEN_PORT, LED_GREEN, pin == LED_GREEN ? SET : RESET); //commented cause this pin is used to activate the motor with the blade of the lawnmower
-	gpio_bit_write(LED_ORANGE_PORT, LED_ORANGE, pin == LED_ORANGE ? SET : RESET);
-	gpio_bit_write(LED_RED_PORT, LED_RED, pin == LED_RED ? SET : RESET);
+	#ifndef DEBUG_WITH_TRACE_ENABLED
+		// gpio_bit_write(LED_GREEN_PORT, LED_GREEN, pin == LED_GREEN ? SET : RESET); //commented cause this pin is used to activate the motor with the blade of the lawnmower
+		gpio_bit_write(LED_ORANGE_PORT, LED_ORANGE, pin == LED_ORANGE ? SET : RESET);
+		gpio_bit_write(LED_RED_PORT, LED_RED, pin == LED_RED ? SET : RESET);
+	#endif
 }
 
 //----------------------------------------------------------------------------

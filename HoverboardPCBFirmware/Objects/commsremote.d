@@ -30,6 +30,6 @@
 .\objects\commsremote.o: Src\../Inc/commsRemote.h
 .\objects\commsremote.o: Src\../Inc/setup.h
 .\objects\commsremote.o: Src\../Inc/defines.h
-.\objects\commsremote.o: Src\../Inc/bldc.h
+.\objects\commsremote.o: Src\../Inc/navigator.h
 .\objects\commsremote.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\commsremote.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

@@ -26,3 +26,6 @@
 .\objects\navigator.o: C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h
 .\objects\navigator.o: C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h
 .\objects\navigator.o: Src\../Inc/defines.h
+.\objects\navigator.o: Src\../Inc/setup.h
+.\objects\navigator.o: Src\../Inc/commsMasterSlave.h
+.\objects\navigator.o: Src\../Inc/bldc.h

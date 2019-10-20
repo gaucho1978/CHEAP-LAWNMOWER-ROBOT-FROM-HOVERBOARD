@@ -13,6 +13,7 @@
 ".\objects\commsaccelerometer.o"
 ".\objects\commsremote.o"
 ".\objects\navigator.o"
+"..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Lib\ARM\arm_cortexM3l_math.lib"
 ".\objects\gd32f1x0_adc.o"
 ".\objects\gd32f1x0_dbg.o"
 ".\objects\gd32f1x0_dma.o"

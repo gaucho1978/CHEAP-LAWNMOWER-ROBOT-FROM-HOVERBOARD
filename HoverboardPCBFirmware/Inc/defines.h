@@ -11,7 +11,7 @@
 #define LED_GREEN_PORT GPIOA
 #define LED_ORANGE GPIO_PIN_12
 #define LED_ORANGE_PORT GPIOA
-#define LED_RED GPIO_PIN_3
+#define LED_RED GPIO_PIN_3 //used as a red led, but during trace it used for trace. see DEBUG_WITH_TRACE_ENABLED in config file.
 #define LED_RED_PORT GPIOB
 
 #define UPPER_LED_PIN GPIO_PIN_1

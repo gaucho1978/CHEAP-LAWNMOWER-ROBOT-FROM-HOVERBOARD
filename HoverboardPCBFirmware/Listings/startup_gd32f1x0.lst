@@ -511,12 +511,13 @@ ARM Macro Assembler    Page 8
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\startup_gd32f1x0.d -o.\objects\startup_gd32f1x0.o -I.\RT
 E\_Target_1 -IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\C
-ore\Include -IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP
-\3.1.1\Device\Firmware\Peripherals\inc -IC:\Users\GauchoHP\AppData\Local\Arm\Pa
-cks\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include --predefine="__EVAL SETA 1" --
-predefine="__UVISION_VERSION SETA 527" --predefine="_RTE_ SETA 1" --predefine="
-GD32F130_150 SETA 1" --list=.\listings\startup_gd32f1x0.lst RTE\Device\GD32F130
-C8\startup_gd32f1x0.s
+ore\Include -IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\D
+SP\Include -IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\
+3.1.1\Device\Firmware\Peripherals\inc -IC:\Users\GauchoHP\AppData\Local\Arm\Pac
+ks\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include --predefine="__EVAL SETA 1" --p
+redefine="__UVISION_VERSION SETA 527" --predefine="_RTE_ SETA 1" --predefine="G
+D32F130_150 SETA 1" --list=.\listings\startup_gd32f1x0.lst RTE\Device\GD32F130C
+8\startup_gd32f1x0.s
 
 
 

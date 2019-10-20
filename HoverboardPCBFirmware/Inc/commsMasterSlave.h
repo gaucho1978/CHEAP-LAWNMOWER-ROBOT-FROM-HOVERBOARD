@@ -8,6 +8,7 @@
 #include "gd32f1x0.h"
 #include "../Inc/config.h"
 
+
 //----------------------------------------------------------------------------
 // Update USART master slave input
 //----------------------------------------------------------------------------
@@ -23,7 +24,7 @@ void SendSlave(int16_t pwmSlave, FlagStatus enable, FlagStatus shutoff, FlagStat
 //----------------------------------------------------------------------------
 // Send master frame via USART
 //----------------------------------------------------------------------------
-void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus mosfetOutMaster, FlagStatus beepsBackwards);
+void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus mosfetOutMaster, FlagStatus beepsBackwards, bool moveByStepsCompleted);
 
 //----------------------------------------------------------------------------
 // Returns current value sent by master

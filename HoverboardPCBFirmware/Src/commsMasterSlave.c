@@ -13,28 +13,41 @@
 #include "string.h"
 
 #ifdef MASTER
-#define USART_MASTERSLAVE_TX_BYTES 10  // Transmit byte count including start '/' and stop character '\n'
-#define USART_MASTERSLAVE_RX_BYTES 5   // Receive byte count including start '/' and stop character '\n'
+	#define USART_MASTERSLAVE_TX_BYTES 10  // Transmit byte count including start '/' and stop character '\n'
+	#define USART_MASTERSLAVE_RX_BYTES 5   // Receive byte count including start '/' and stop character '\n'
 
-// Variables which will be written by slave frame
-extern FlagStatus beepsBackwards;
+	// Variables which will be written by slave frame
+	extern FlagStatus beepsBackwards;
+	
+	bool slaveBoardMovementByStepCompleted=FALSE;
 #endif
 #ifdef SLAVE
-#define USART_MASTERSLAVE_TX_BYTES 5   // Transmit byte count including start '/' and stop character '\n'
-#define USART_MASTERSLAVE_RX_BYTES 10  // Receive byte count including start '/' and stop character '\n'
+	
+	#define USART_MASTERSLAVE_TX_BYTES 5   // Transmit byte count including start '/' and stop character '\n'
+	#define USART_MASTERSLAVE_RX_BYTES 10  // Receive byte count including start '/' and stop character '\n'
 
-// Variables which will be send to master
-FlagStatus upperLEDMaster = RESET;
-FlagStatus lowerLEDMaster = RESET;
-FlagStatus mosfetOutMaster = RESET;
-FlagStatus beepsBackwardsMaster = RESET;
+	//extern uint16_t halfMillisecondsCount;
+	//uint16_t messagePeriodMilliseconds;
+	// Variables which will be send to master
+	extern int16_t bldc_inputFilterPwm;
+	
+	FlagStatus upperLEDMaster = RESET;
+	FlagStatus lowerLEDMaster = RESET;
+	FlagStatus mosfetOutMaster = RESET;
+	FlagStatus beepsBackwardsMaster = RESET;
 
-// Variables which will be written by master frame
-int16_t currentDCMaster = 0;
-int16_t batteryMaster = 0;
-int16_t realSpeedMaster = 0;
+	// Variables which will be written by master frame
+	int16_t currentDCMaster = 0;
+	int16_t batteryMaster = 0;
+	float realSpeedMaster = 0;
+	extern int16_t remainingSteps;
+	int16_t masterRemainingSteps=0;
+	extern float realSpeed; //real speed of the slave board
+	extern bool moveBySteps;
+	extern bool moveByStepsCompleted;
 
-void CheckGeneralValue(uint8_t identifier, int16_t value);
+
+	void CheckGeneralValue(uint8_t identifier, int16_t value);
 #endif
 
 extern uint8_t usartMasterSlave_rx_buf[USART_MASTERSLAVE_RX_BUFFERSIZE];
@@ -48,7 +61,7 @@ uint16_t CalcCRC(uint8_t *ptr, int count);
 
 //----------------------------------------------------------------------------
 // Update USART master slave input
-// receives data on the REMOTE usart of the SLAVE board
+// receives data on the MasterSlave usart of the SLAVE board
 //----------------------------------------------------------------------------
 void UpdateUSARTMasterSlaveInput(void)
 {
@@ -130,7 +143,8 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 	//none = (byte & BIT(7)) ? SET : RESET;
 	//none = (byte & BIT(6)) ? SET : RESET;
 	//none = (byte & BIT(5)) ? SET : RESET;
-	//none = (byte & BIT(4)) ? SET : RESET;
+	slaveBoardMovementByStepCompleted = (byte & BIT(4)) ? TRUE : FALSE;
+	
 	beepsBackwards = (byte & BIT(3)) ? SET : RESET;
 	mosfetOut = (byte & BIT(2)) ? SET : RESET;
 	lowerLED = (byte & BIT(1)) ? SET : RESET;
@@ -182,13 +196,19 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 	
 	// Set functions according to the variables
 	gpio_bit_write(LED_GREEN_PORT, LED_GREEN, chargeStateLowActive == SET ? SET : RESET);
-	gpio_bit_write(LED_RED_PORT, LED_RED, chargeStateLowActive == RESET ? SET : RESET);
-	SetEnable(enable);
-	SetPWM(pwmSlave);
+	#ifndef DEBUG_WITH_TRACE_ENABLED
+		gpio_bit_write(LED_RED_PORT, LED_RED, chargeStateLowActive == RESET ? SET : RESET);
+	#endif
 	CheckGeneralValue(identifier, value);
 	
+	//messagePeriodMilliseconds=(halfMillisecondsCount+1)/2;
+	//halfMillisecondsCount=0;
+	if(!moveBySteps){ //movements controlled by speed and steer 
+		SetEnable(enable);
+		SetPWM(pwmSlave);
+	}
 	// Send answer
-	SendMaster(upperLEDMaster, lowerLEDMaster, mosfetOutMaster, beepsBackwardsMaster);
+	SendMaster(upperLEDMaster, lowerLEDMaster, mosfetOutMaster, beepsBackwardsMaster,moveByStepsCompleted);
 	
 	// Reset the pwm timout to avoid stopping motors
 	ResetTimeout();
@@ -244,7 +264,7 @@ void SendSlave(int16_t pwmSlave, FlagStatus enable, FlagStatus shutoff, FlagStat
 //----------------------------------------------------------------------------
 // Send master frame via USART
 //----------------------------------------------------------------------------
-void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus mosfetOutMaster, FlagStatus beepsBackwards)
+void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus mosfetOutMaster, FlagStatus beepsBackwards, bool moveByStepsCompleted)
 {
 	uint8_t index = 0;
 	uint16_t crc = 0;
@@ -254,7 +274,7 @@ void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus
 	sendByte |= (0 << 7);
 	sendByte |= (0 << 6);
 	sendByte |= (0 << 5);
-	sendByte |= (0 << 4);
+	sendByte |= (moveByStepsCompleted << 4);
 	sendByte |= (beepsBackwards << 3);
 	sendByte |= (mosfetOutMaster << 2);
 	sendByte |= (lowerLEDMaster << 1);
@@ -289,9 +309,25 @@ void CheckGeneralValue(uint8_t identifier, int16_t value)
 			batteryMaster = value;
 			break;
 		case 2:
-			realSpeedMaster = value;
+			realSpeedMaster = value/1000.0f;
 			break;
-		case 3:
+		case 3: // move by steps requested
+			SetEnable(RESET);
+			go_to(value); //go forward or backward of this distance
+			break;
+		case 4: //receiving remainingSteps valid only if we are moving By steps
+			if(moveBySteps){
+				masterRemainingSteps=value;
+			}
+			break;
+		case 5:
+			PID_setKp(value/10000.0); //proportional PID constant
+			break;
+		case 6:
+			PID_setKi(value/10000.0); //integral  PID constant
+			break;
+		case 7:
+			PID_setKd(value/10000.0); //differential PID constant
 			break;
 		default:
 			break;
@@ -319,7 +355,8 @@ int16_t GetBatteryMaster(void)
 //----------------------------------------------------------------------------
 int16_t GetRealSpeedMaster(void)
 {
-	return realSpeedMaster;
+	if (realSpeedMaster>32.0f) return 32000;
+	return realSpeedMaster*1000;
 }
 
 //----------------------------------------------------------------------------
