@@ -20,7 +20,8 @@ The mechanical project is located in the folder LawnMowerMechanicalProject.
 These are some images (the base is aluminium and the cover in polycarbonate):
 ![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/bottom1.png)
 ![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/side.png)
-![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/top.png)
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/prospective.png)
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/prospective2.png)
 ![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/LawnmowerMechanicalProject/3D%20PROJECT%20-%20INVENTOR%202014/pictures/front.png)
 
 
@@ -28,15 +29,11 @@ These are some images (the base is aluminium and the cover in polycarbonate):
    LawnMowerMEchanicalProject/FILES FOR MANUFACTURING/PDF FORMAT
 - You will fing files for manufacturing plastic supports with 3d printer in the folder:
    LawnMowerMEchanicalProject/FILES FOR MANUFACTURING/3DPrinted supports
-- The blade support shall be 3d printed, then 4 cutter blades are screwed on the 4 edges of the plastic support. You could also purchase a blade for lawnmower online.
-- The shaft to fix the blade is obtained modifing a screw.
-- The shaft is maintained in its vertical position through bearings. 
-- The bearing is mainteined in its position through a 3d printed support interfacing bearing and the alluminium plate.
-- I used autolock bolts to fix the blade on the shaft.
+- The blade support shall be 3d printed. look ad detailed mechanical drawing to see how to assemble 3dprinted parts.
 
 
 ------------------------------
-#### BILL OF MATERIAL - TOTAL COST 120 EURO
+#### BILL OF MATERIAL - TOTAL COST around 160 EURO
 50 EURO - USED HOVERBOARD - https://www.mediaworld.it/product/p-742077/i-bike-kidplay-streetboard-one-hoverboard-6-5?ds_rl=1250284&ds_rl=1250284&gclid=CjwKCAjwiN_mBRBBEiwA9N-e_qMfsYSRb5w4XxsWQmA6IEDfbXj_eAiy6rWeXzdMz_envhganzewVxoCpBMQAvD_BwE&gclsrc=aw.ds
 
 20 EURO - TURNIGY 9X RADIOCONTROL OR ANY OTHER TYPE OF RC WITH PWM OUTPUT WITH AT LEAST 2 CHANNELS (ONE FOR SPEED AND ONE FOR STEERING)
@@ -49,9 +46,9 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 
 1 EURO - DCDC(FOR ARDUINO AND/OR BLADE MOTOR): https://www.ebay.it/itm/122201239217
 
-10 EURO - MOTOR FOR BLADE (I REUSED MOTOR+ESC FROM A DJI S1000 MULTICOPTER, BUT YOU CAN BUY USED MOTOR FROM ELECTRIC WINDOWS OF A CAR AND ADAPT IT)
+30 EURO - MOTORS FOR BLADES (I REUSED SOME 24V FAN, powering them with modified notebook AC/DC)
 
-10 EURO - TWO 3D PRINTED SUPPORTS FOR BEARING, ONE 3D PRINTED SUPPORT FOR BLADE, AND ONE 3D PRINTED SUPPORT FOR BOLT CAP TO BE MOUNTED CLOSE TO THE BLADE  (I PRINTED THEM FOR FREE WITH MY PRINTER)
+30 EURO - 3D PRINTED SUPPORTS FOR BEARING, (I PRINTED THEM FOR FREE WITH MY PRINTER)
 
 1 EURO - FOUR BLADES FOR CUTTER (I FOUND THEM IN A LOCAL HARDWARE STORE (OBI))
 
@@ -65,7 +62,6 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 
 2 EURO - PANIC BUTTON - https://www.ebay.it/itm/Rosso-fungo-Cap-1-NO-1-NC-ferma-emergenza-Pulsante-interruttore-DPST-660V-10A/123270871363?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649
 
-2 EURO - TWO BEARINGS (I REUSED BEARING FROM A INLINE SKATE WHEEL)
 
 
 ------------------------------
