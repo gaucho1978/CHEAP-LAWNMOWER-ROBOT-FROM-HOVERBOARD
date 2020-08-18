@@ -16,7 +16,9 @@ extern bool moveByStepsCompleted;
 extern float pitchAngle;
 extern float rollAngle;
 extern float yawAngle;
+extern int16_t speed_mm_per_second;
 uint8_t jumpsCounter=0;
+bool navigatorStopped=TRUE;
 
 typedef struct
 { 
@@ -58,10 +60,11 @@ move_struct pathArray3[9]={{FALSE,-10000},{FALSE,10000},{FALSE,-10000},{FALSE,10
 	
 	void checkNavigationStatus(void){
 		
-		
+		if (navigatorStopped) return;
 		//execute program as soon as we can
 		//if we are not moving by steps
 		// or if we are movingbysteps and we completed now a movement with both wheels
+		
 		if((moveBySteps==FALSE) || (moveBySteps && moveByStepsCompleted==TRUE && slaveBoardMovementByStepCompleted==TRUE)){ 
 			//if we completed the program, just return
 			if(programPointer>8) return;
@@ -79,6 +82,17 @@ move_struct pathArray3[9]={{FALSE,-10000},{FALSE,10000},{FALSE,-10000},{FALSE,10
 		}
 	}
 	
+	void stopNavigator(void){
+		navigatorStopped=TRUE;
+		SendSlave(0, RESET, RESET, SET, 3, (int16_t)10);
+		go_to(10); 
+		
+	}
 	
+	bool isNavigatorRunning(void){
+		if (navigatorStopped) return FALSE;
+		if (programPointer>= sizeof(pathArray)/3 ) return FALSE;
+		return TRUE;
+	}
 
 #endif

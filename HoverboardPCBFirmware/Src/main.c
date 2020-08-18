@@ -25,8 +25,14 @@
 
 #ifdef MASTER
 
-	int32_t steer = 0; 												// global variable for steering. -1000 to 1000
-	int32_t speed = 0; 												// global variable for speed.    -1000 to 1000
+	//int32_t steer = 0; 												// global variable for steering. -1000 to 1000
+	//int32_t speed = 0; 												// global variable for speed.    -1000 to 1000
+	int16_t speed_mm_per_second_MasterWheel=(int16_t)0;						// global variable for speed in mm per second -6000 +6000 (21,6km/h)
+	int16_t speed_mm_per_second_SlaveWheel=(int16_t)0;						// global variable for speed in mm per second -6000 +6000 (21,6km/h)
+	int16_t speed_mm_per_second=(int16_t)0;						// global variable for speed in mm per second -6000 +6000 (21,6km/h)
+	
+	int16_t steerAngle = 0;  //angle pf steer between 180 and 0 degrees. 90 degrees to go straight
+		
 	int32_t actuatorSpeed = 0;								// actuator(lawnmower motor blade) speed. 0 to 1000
 	
 	float logImuArray[400]; 									//array of array for logging purposes
@@ -50,11 +56,14 @@
 				
 	extern float batteryVoltage; 							// global variable for battery voltage
 	extern float currentDC; 									// global variable for current dc
-	extern float realSpeed; 									// global variable for real Speed
+	extern float realSpeed_mm_per_second; 									// global variable for real Speed
 	extern bool moveBySteps;									//global variable for movements controlled in steps(=1) or classic movements controlled by speed and steer (=0)
 	extern bool moveByStepsCompleted;					//global variable. 1= movement completed.
 	extern int16_t remainingSteps;
 	extern FlagStatus timedOut;								// Timeoutvariable set by timeout timer
+	
+	bool robotReversed=FALSE;
+	
 	uint32_t inactivity_timeout_counter = 0;	// Inactivity counter
 	uint32_t steerCounter = 0;								// Steer counter for setting update rate
 
@@ -265,12 +274,12 @@ int main (void){
 	int16_t sendSlaveValue = 0;
 	uint8_t sendSlaveIdentifier = 0;
 	int8_t index = 8;
-  int16_t pwmSlave = 0;
-	int16_t pwmMaster = 0;
-	int16_t scaledSpeed = 0;
-	int16_t scaledSteer  = 0;
-	float expo = 0;
-	float steerAngle = 0;
+  //int16_t pwmSlave = 0;
+	//int16_t pwmMaster = 0;
+	//int16_t scaledSpeed = 0;
+	//int16_t scaledSteer  = 0;
+	//float expo = 0;
+
 	float xScale = 0;
 #endif
 	
@@ -362,28 +371,30 @@ int main (void){
 		}else{ //classic movements controlled by speed and steer
 			
 			// Calculate expo rate for less steering with higher speeds
-			expo = MAP((float)ABS(speed), 0, 1000, 1, 0.5);
+			//expo = MAP((float)ABS(speed), 0, 1000, 1, 0.5);
 			
 			// Each speedvalue or steervalue between 50 and -50 means absolutely no pwm
 			// -> to get the device calm 'around zero speed'
-			scaledSpeed = speed < 50 && speed > -50 ? 0 : CLAMP(speed, -1000, 1000) * SPEED_COEFFICIENT;
-			scaledSteer = steer < 50 && steer > -50 ? 0 : CLAMP(steer, -1000, 1000) * STEER_COEFFICIENT * expo;
+			//scaledSpeed = speed < 50 && speed > -50 ? 0 : CLAMP(speed, -1000, 1000) * SPEED_COEFFICIENT;
+			//scaledSteer = steer < 50 && steer > -50 ? 0 : CLAMP(steer, -1000, 1000) * STEER_COEFFICIENT * expo;
+			
+			
 			
 			// Map to an angle of 180 degress to 0 degrees for array access (means angle -90 to 90 degrees)
-			steerAngle = MAP((float)scaledSteer, -1000, 1000, 180, 0);
+			//steerAngle = MAP((float)scaledSteer, -1000, 1000, 180, 0);
 			xScale = lookUpTableAngle[(uint16_t)steerAngle];
 
-			// Mix steering and speed value for right and left speed
-			if(steerAngle >= 90)
-			{
-				pwmSlave = CLAMP(scaledSpeed, -1000, 1000);
-				pwmMaster = CLAMP(pwmSlave / xScale, -1000, 1000);
-			}
-			else
-			{
-				pwmMaster = CLAMP(scaledSpeed, -1000, 1000);
-				pwmSlave = CLAMP(xScale * pwmMaster, -1000, 1000);
-			}
+				
+				// Mix steering and speed value for right and left speed
+				if(steerAngle >= 90){
+					speed_mm_per_second_MasterWheel= CLAMP(speed_mm_per_second,-1000,1000);
+					speed_mm_per_second_SlaveWheel = CLAMP(speed_mm_per_second / xScale,-1000,1000);
+				}else{
+					speed_mm_per_second_MasterWheel= CLAMP(speed_mm_per_second * xScale,-1000,1000);
+					speed_mm_per_second_SlaveWheel = CLAMP(speed_mm_per_second,-1000,1000);
+				}
+		
+			
 			
 			
 			// Enable channel output
@@ -391,16 +402,13 @@ int main (void){
 
 			
 			// Set output
-			SetPWM(pwmMaster);
+			SetSpeed(speed_mm_per_second_MasterWheel);
 			
 			
 			// Calculate inactivity timeout (Except, when charger is active -> keep device running)
-			if (ABS(pwmMaster) > 50 || ABS(pwmSlave) > 50 || !chargeStateLowActive)
-			{
+			if (!chargeStateLowActive || ABS(speed_mm_per_second)>40){
 				inactivity_timeout_counter = 0;
-			}
-			else
-			{
+			}else{
 				inactivity_timeout_counter++;
 			}
 			
@@ -441,7 +449,7 @@ int main (void){
 				sendSlaveValue = batteryVoltage * 100;
 				break;
 			case 2:
-				sendSlaveValue = realSpeed * 1000;
+				sendSlaveValue = realSpeed_mm_per_second * 1000;
 				break;
 			case 3:
 				sendSlaveIdentifier++; //we jump case 3 since it is used just on navigator
@@ -453,7 +461,7 @@ int main (void){
 				break;
 		}
 		//send data to slave board
-		SendSlave(-pwmSlave, enableSlave, RESET, chargeStateLowActive, sendSlaveIdentifier, sendSlaveValue);
+		SendSlave(-speed_mm_per_second_SlaveWheel, enableSlave, RESET, chargeStateLowActive, sendSlaveIdentifier, sendSlaveValue);
 		
 		// Increment identifier
 		sendSlaveIdentifier++;
@@ -462,17 +470,21 @@ int main (void){
 			sendSlaveIdentifier = 0;
 		}
 		
-				
-		//if robot is touched (roll or pitch > 9 degrees, shutdown everything for safety reason
-		if((ABS(pitchAngle)>9) ||  (ABS(rollAngle)>9) ){
+		if((ABS(pitchAngle)>20) ||  (ABS(rollAngle)>20) ){
+			robotReversed=TRUE;
+			//actuatorSpeed=0;
+			gpio_bit_write(LED_GREEN_PORT, LED_GREEN, RESET); //(inverted logic since it uses npn transistor)
+		
+			speed_mm_per_second=0;
+			stopNavigator();
 			ShutOff();
-		}	
-
+			
+		}
 		// Show green battery symbol when battery level BAT_LOW_LVL1 is reached
     if (batteryVoltage > BAT_LOW_LVL1)
 		{
 			// Show green battery light
-			ShowBatteryState(LED_GREEN);
+			//ShowBatteryState(LED_GREEN); //green led is used by the actuator (blade motor) inside commsActuator.c
 			
 			// Beeps backwards
 			BeepsBackwards(beepsBackwards);
@@ -554,7 +566,8 @@ void ShutOff(void){
 	
 	// Set pwm and enable to off
 	SetEnable(RESET);
-	SetPWM(0);
+	//SetPWM(0);
+	speed_mm_per_second_MasterWheel=0;
 	
 	gpio_bit_write(SELF_HOLD_PORT, SELF_HOLD_PIN, RESET);
 	while(1)
@@ -581,8 +594,8 @@ void ShowBatteryState(uint32_t pin)
 //----------------------------------------------------------------------------
 void BeepsBackwards(FlagStatus beepsBackwards)
 {
-	// If the speed is less than -50, beep while driving backwards
-	if (beepsBackwards == SET && speed < -50)
+	// If the speed is less than -40, beep while driving backwards
+	if (beepsBackwards == SET && speed_mm_per_second < -40)
 	{
 		buzzerFreq = 5;
     buzzerPattern = 4;

@@ -14,101 +14,97 @@
 // Only master receives PWM remote control INPUT
 #ifdef MASTER
 
-extern int32_t steer;
-extern int32_t speed;
-int32_t tmpSpeed;
-int32_t tmpSteer;
-
-extern int32_t actuatorSpeed;
-
-
-FlagStatus previousPWMSpeedSignalLevel=RESET; //false=low signal level, true=high signal level
+int8_t steerPwmFiltered=-CONFIRMATIONSCOUNT;
+extern int16_t steerAngle;
+int32_t filter_reg3;
 FlagStatus previousPWMSteerSignalLevel=RESET; //false=low signal level, true=high signal level
-float rc_speed_delay = 0;
-float rc_steer_delay = 0;
+int16_t rc_steer_delay = 0;  //each step is 31.25usec
 
 
-uint8_t pwm_speed_count = 0;
+int8_t speedPwmFiltered=-CONFIRMATIONSCOUNT;
+extern int16_t speed_mm_per_second;
+int32_t filter_reg2;
+FlagStatus previousPWMSpeedSignalLevel=RESET; //false=low signal level, true=high signal level
+int16_t rc_speed_delay = 0;  //EACH STEP IS 31.25 usec
+
 
 #define IN_RANGE(x, low, up) (((x) >= (low)) && ((x) <= (up)))
 
+//----------------------------------------------------------------------------
+// read PPM input each 31.25us
+//----------------------------------------------------------------------------
+void CheckPWMRemoteControlInput(void){
+	
+	if (gpio_input_bit_get(SPEED_PWM_PORT, SPEED_PWM_PIN)==SET){
+		speedPwmFiltered++;
+	}else{
+		speedPwmFiltered--;
+	}
+	speedPwmFiltered=CLAMP(speedPwmFiltered,-CONFIRMATIONSCOUNT,CONFIRMATIONSCOUNT);
 
-//----------------------------------------------------------------------------
-// read PPM input each 31,25us
-//----------------------------------------------------------------------------
-void CheckPWMRemoteControlInput(void)
-{
-	//stop counting SPEED on faling edge
-	if (gpio_input_bit_get(SPEED_PWM_PORT, SPEED_PWM_PIN)==RESET && previousPWMSpeedSignalLevel==SET && rc_speed_delay<=2000){ //IF FALLING EDGE
+	if (gpio_input_bit_get(STEER_PWM_PORT, STEER_PWM_PIN)==SET){
+		steerPwmFiltered++;
+	}else{
+		steerPwmFiltered--;
+	}
+	steerPwmFiltered=CLAMP(steerPwmFiltered,-CONFIRMATIONSCOUNT,CONFIRMATIONSCOUNT);
+
+	
+	//stop counting SPEED on faling edge if delay is between 2000 and 1000 usec
+	if (speedPwmFiltered==-CONFIRMATIONSCOUNT && previousPWMSpeedSignalLevel==SET  &&  rc_speed_delay<=64 && rc_speed_delay>=32){ //IF FALLING EDGE
 		previousPWMSpeedSignalLevel=RESET;
-		// Calculate result speed value -1000 to 1000
-		// rc_speed_delay shall be between 1000 and 2000 microseconds.
-		tmpSpeed = (int16_t)CLAMP((rc_speed_delay-1500)*0.5, -1000, 1000); //replace 0.5 with 2.4 to reach maximum speed
-		if(speed<tmpSpeed){ //make acceleration smooth
-			speed=speed+20;
-		}else{
-			speed=speed-20;
-		}
 		
-		
-		//if we are moving, controlled by RC, activate PWM output to control the blade of the lawnmower 
-		if(speed>50 || speed<-50 ){
-			actuatorSpeed=250;
+		filter_reg2 = filter_reg2 - (filter_reg2 >> FILTER_SHIFT2) + (int16_t)(CLAMP(rc_speed_delay-48, -16, 16)); 
+		speed_mm_per_second = filter_reg2 >> FILTER_SHIFT2;
+		speed_mm_per_second=MAP(speed_mm_per_second,-16,16,-250,250);  //map between -250 and 250 mm/sec // // to reach maximum speed REPLACE 250 WITH 6000 
+		if(speed_mm_per_second>-40 && speed_mm_per_second<40){ //avoid unwanted movements when stick is in the middle
+			speed_mm_per_second=(int16_t)0;
+			gpio_bit_write(LED_GREEN_PORT, LED_GREEN, RESET); //(inverted logic since it uses npn transistor)
 		}else{
-			actuatorSpeed=0;
+				gpio_bit_write(LED_GREEN_PORT, LED_GREEN, SET); //(inverted logic since it uses npn transistor)
+			// Reset the pwm timout to avoid stopping motors
+			ResetTimeout();
 		}
-    // Reset the pwm timout to avoid stopping motors
-		ResetTimeout();
 		rc_speed_delay=0;
 	}
 
-		//stop counting STEER on faling edge
-	if (gpio_input_bit_get(STEER_PWM_PORT, STEER_PWM_PIN)==RESET && previousPWMSteerSignalLevel==SET && rc_steer_delay<=2000){ //IF FALLING EDGE
+	//start counting SPEED on rising edge
+	if (speedPwmFiltered==CONFIRMATIONSCOUNT && previousPWMSpeedSignalLevel==RESET){ //IF RISING EDGE
+		previousPWMSpeedSignalLevel=SET;
+		rc_speed_delay=0;
+	}
+
+	//stop counting STEER on falling edge
+	if (steerPwmFiltered==-CONFIRMATIONSCOUNT && previousPWMSteerSignalLevel==SET && rc_steer_delay<=64 && rc_steer_delay>=32){ //IF FALLING EDGE
 		previousPWMSteerSignalLevel=RESET;
-		// Calculate result speed value -1000 to 1000
-		// rc_steer_delay shall be between 1000 and 2000 microseconds.
-		tmpSteer = -(int16_t)CLAMP((rc_steer_delay-1500)*2.4, -1000, 1000);
-		//if(steer<tmpSteer){ //make steer command smooth
-		//	steer=steer+20;
-		//}else{
-		//	steer=steer-20;
-		//}
-		steer=tmpSteer;
-    // Reset the pwm timout to avoid stopping motors ONLY ON SPEED. NOT NEEDED ON STEER
-		//ResetTimeout();
+		// rc_steer_delay shall be between 1000 and 2000 microseconds (32 and 64 steps).
+		//make steer command smooth
+		filter_reg3 = filter_reg3 - (filter_reg3 >> FILTER_SHIFT2) + (int16_t)(CLAMP(rc_steer_delay-48, -16, 16));
+		steerAngle = filter_reg3 >> FILTER_SHIFT2;
+		steerAngle = MAP(steerAngle,-16,16,180,0);  //map between 0 and 180 degrees
 		rc_steer_delay=0;
 	}
 
 	
-	//start counting SPEED on rising edge
-	if (gpio_input_bit_get(SPEED_PWM_PORT, SPEED_PWM_PIN)==SET && previousPWMSpeedSignalLevel==RESET){ //IF RISING EDGE
-		previousPWMSpeedSignalLevel=SET;
-		rc_speed_delay=0;
-	}
-	
 	//start counting STEER on rising edge
-	if (gpio_input_bit_get(STEER_PWM_PORT, STEER_PWM_PIN)==SET && previousPWMSteerSignalLevel==RESET){ //IF RISING EDGE
+	if (steerPwmFiltered==CONFIRMATIONSCOUNT  && previousPWMSteerSignalLevel==RESET){ //IF RISING EDGE
 		previousPWMSteerSignalLevel=SET;
 		rc_steer_delay=0;
 	}
 	
-	
-	rc_speed_delay=rc_speed_delay+31.25;
-	rc_steer_delay=rc_steer_delay+31.25;
+	rc_speed_delay++; // each step is 31.25 usec
+	rc_steer_delay++; // each step is 31.25 usec
 
-	//after 500ms declare the absence of pwm signal
-	if(rc_speed_delay> 500000 || rc_steer_delay> 500000){
-		#ifdef REMOTE_CONTROL_PWM
-		speed = (int16_t)0;
-		steer = (int16_t)0;
-		actuatorSpeed=(int16_t)0;
-		#endif
+	//after 500ms (16000 steps) declare the absence of pwm signal
+	if(rc_speed_delay> 16000 || rc_steer_delay> 16000){
+		speed_mm_per_second=(int16_t)0;
+		steerAngle = 90;
+		//shut down the blade motor
+		gpio_bit_write(LED_GREEN_PORT, LED_GREEN, RESET); //(inverted logic since it uses npn transistor)
 		rc_speed_delay=0;
 		rc_steer_delay=0;
 	}
 
 }
-
-	
 
 #endif

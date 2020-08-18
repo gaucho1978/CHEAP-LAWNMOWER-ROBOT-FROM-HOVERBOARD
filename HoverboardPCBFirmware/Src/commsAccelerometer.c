@@ -42,6 +42,10 @@ extern bool printAccelerometerLog;
 
 extern float logImuArray[400];
 extern int16_t logImuArrayCurrentIndex;
+
+uint8_t offsetDataValueToReadFromAccelerometerMemory=0;
+
+
 //periodically called by timers in it.c
 void GetAccelerometerData(void){
 	uint8_t bytesToReadIndex=0;
@@ -274,7 +278,8 @@ void GetAccelerometerData(void){
 		// clear ADDSEND bit 
 		i2c_flag_clear(I2C0, I2C_FLAG_ADDSEND);
 		// send a data byte 
-		i2c_data_transmit(I2C0,0x0C);  //first REGISTER to read 0x0C
+		i2c_data_transmit(I2C0,0x0C + offsetDataValueToReadFromAccelerometerMemory);  //first REGISTER to read 0x0C
+		
 		// wait until the transmission data register is empty
 		while(!i2c_flag_get(I2C0, I2C_FLAG_TBE));
 		// send a stop condition to I2C bus
@@ -298,8 +303,8 @@ void GetAccelerometerData(void){
 		// if we receive only one byte: send stop condition
 		//i2c_stop_on_bus(I2C0);
 		//now we receive 	
-		for(bytesToReadIndex=0; bytesToReadIndex<22; bytesToReadIndex++){
-			if(20 == bytesToReadIndex){
+		for(bytesToReadIndex=0; bytesToReadIndex<2; bytesToReadIndex++){ //era 22
+			if(2-2 == bytesToReadIndex){
 				// wait until the second last data byte is received into the shift register
 				while(!i2c_flag_get(I2C0, I2C_FLAG_BTC));
 				// disable acknowledge
@@ -308,73 +313,93 @@ void GetAccelerometerData(void){
 			// wait until the RBNE bit is set
 			while(!i2c_flag_get(I2C0, I2C_FLAG_RBNE));
 			tmpVar=i2c_data_receive(I2C0);
-			imuArray[bytesToReadIndex]=tmpVar;
+			imuArray[bytesToReadIndex+offsetDataValueToReadFromAccelerometerMemory]=tmpVar;
+			
 		}
 			
-		gyroX=(int16_t)( imuArray[0]  | imuArray[1]  << 8) * 0.0038; // 125degrees per second/2^15
-		gyroY=( (int16_t)( imuArray[2] | imuArray[3] << 8) * 0.0038)  ;
-		gyroZ=( (int16_t)( imuArray[4] | imuArray[5] << 8) * 0.0038)  ;
-		
-		
-		accelerationX=( (int16_t)( imuArray[6] | imuArray[7] << 8) * 0.000061)  ; // 2g /2^15 = 0.000061
-		accelerationY=( (int16_t)( imuArray[8] | imuArray[9] << 8) * 0.000061)  ;
-		accelerationZ=( (int16_t)( imuArray[10] | imuArray[11] << 8) * 0.000061)  ;
-		
-		timestamp= (imuArray[12] + imuArray[13] *256 + imuArray[14] * 256*256 )   * 0.000039; //seconds
-		temperature=( (int16_t)( imuArray[20] | imuArray[21] << 8) * 0.00195312) +23 ;  //celsius degrees - we could set an alarm if temperature goes over 50 celsius degrees
-		
-		
-		//calculate pich
-		//and integrate in time in order to do not consider accelerations due to speed
-		//This introduces a delay, but it is not a problem since we don't need instant knowledge of roll and pitch
-		pitchAngle = 0.95 * pitchAngle + 0.05 * 180 * atan((accelerationX/sqrt((accelerationY*accelerationY) + (accelerationZ*accelerationZ))))/ (M_PI);
-		//calculat roll
-		rollAngle = 0.95 * rollAngle + 0.05 * 180 * atan (accelerationY/sqrt(accelerationX*accelerationX + accelerationZ*accelerationZ))/M_PI;
-		
-		//log memory
-		if(recordAccelerometerLog){
-			logImuArray[logImuArrayCurrentIndex]=gyroX;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=gyroY;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=gyroZ;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=accelerationX;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=accelerationY;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=accelerationZ;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=timestamp;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=temperature;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=rollAngle;
-			logImuArrayCurrentIndex++;
-			logImuArray[logImuArrayCurrentIndex]=pitchAngle;
-			logImuArrayCurrentIndex++;
+		switch(offsetDataValueToReadFromAccelerometerMemory){
 			
-			if(logImuArrayCurrentIndex>391){
-				//buffer is full, print it
-				recordAccelerometerLog=FALSE;
-				printAccelerometerLog=TRUE;
-				logImuArrayCurrentIndex=-1;
-			}
+			case 0:
+				gyroX=(int16_t)( imuArray[0]  | imuArray[1]  << 8) * 0.0038; // 125degrees per second/2^15
+				break;
+			case 2:
+				gyroY=( (int16_t)( imuArray[2] | imuArray[3] << 8) * 0.0038)  ;
+				break;
+			case 4:
+				gyroZ=( (int16_t)( imuArray[4] | imuArray[5] << 8) * 0.0038)  ;
+			case 6:
+				accelerationX=( (int16_t)( imuArray[6] | imuArray[7] << 8) * 0.000061)  ; // 2g /2^15 = 0.000061
+				break;
+			case 8:
+				accelerationY=( (int16_t)( imuArray[8] | imuArray[9] << 8) * 0.000061)  ;
+				break;
+			case 10:
+				accelerationZ=( (int16_t)( imuArray[10] | imuArray[11] << 8) * 0.000061)  ;
+				//calculate pich
+				//and integrate in time in order to do not consider accelerations due to speed
+				//This introduces a delay, but it is not a problem since we don't need instant knowledge of roll and pitch
+				pitchAngle = 0.95 * pitchAngle + 0.05 * 180 * atan((accelerationX/sqrt((accelerationY*accelerationY) + (accelerationZ*accelerationZ))))/ (M_PI);
+				//calculat roll
+				rollAngle = 0.95 * rollAngle + 0.05 * 180 * atan (accelerationY/sqrt(accelerationX*accelerationX + accelerationZ*accelerationZ))/M_PI;
+			
+				break;
+			case 14:
+				timestamp= (imuArray[12] + imuArray[13] *256 + imuArray[14] * 256*256 )   * 0.000039; //seconds
+				break;
+			case 20:
+				temperature=( (int16_t)( imuArray[20] | imuArray[21] << 8) * 0.00195312) +23 ;  //celsius degrees - we could set an alarm if temperature goes over 50 celsius degrees
+			
 				
+				//now we have entire array updated, let's record it, if requested
+				//log memory
+				if(recordAccelerometerLog){
+					logImuArray[logImuArrayCurrentIndex]=gyroX;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=gyroY;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=gyroZ;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=accelerationX;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=accelerationY;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=accelerationZ;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=timestamp;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=temperature;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=rollAngle;
+					logImuArrayCurrentIndex++;
+					logImuArray[logImuArrayCurrentIndex]=pitchAngle;
+					logImuArrayCurrentIndex++;
+					
+					if(logImuArrayCurrentIndex>391){
+						//buffer is full, print it
+						recordAccelerometerLog=FALSE;
+						printAccelerometerLog=TRUE;
+						logImuArrayCurrentIndex=-1;
+					}
+				}
+				break;
 		}
+		offsetDataValueToReadFromAccelerometerMemory+=2;
+		if(offsetDataValueToReadFromAccelerometerMemory==12) offsetDataValueToReadFromAccelerometerMemory=0;
+		// ^
+		// |
+		// |
+		//set limit to 22 if you want to read also temperature and timestamp
 		
 		// if we receive more bytes: send a stop condition to I2C bus 
 		i2c_stop_on_bus(I2C0);
+		
 		while(I2C_CTL0(I2C0)&0x0200);
 		// enable acknowledge 
 		i2c_ack_config(I2C0, I2C_ACK_ENABLE);
-
-		
-		
-			//accelerationX = (signed int)(((signed int)rawData_X) * 3.9);
-			//accelerationY = (signed int)(((signed int)rawData_Y) * 3.9);
-			//accelerationZ = (signed int)(((signed int)rawData_Z) * 3.9);
-		
+	
+		//accelerationX = (signed int)(((signed int)rawData_X) * 3.9);
+		//accelerationY = (signed int)(((signed int)rawData_Y) * 3.9);
+		//accelerationZ = (signed int)(((signed int)rawData_Z) * 3.9);
 		//yaw = 180 * atan (accelerationZ/sqrt(accelerationX*accelerationX + accelerationZ*accelerationZ))/M_PI;
 		}
 }

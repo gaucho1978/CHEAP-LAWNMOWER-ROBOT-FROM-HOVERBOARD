@@ -1,5 +1,5 @@
 Dependencies for Project 'Hoverboard', Target 'Target 1': (DO NOT MODIFY !)
-F (.\Src\main.c)(0x5DAC4146)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Src\main.c)(0x5E9B2D21)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -25,23 +25,23 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/bldc.h)(0x5D86133D)
-I (Src\../Inc/commsMasterSlave.h)(0x5D5F8E0E)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
+I (Src\../Inc/commsMasterSlave.h)(0x5E9B16FD)
 I (Src\../Inc/commsRemote.h)(0x5D3D6A59)
 I (Src\../Inc/commsSteeringPWM.h)(0x5D2F286B)
 I (Src\../Inc/commsInterlocks.h)(0x5D3F6846)
 I (Src\../Inc/commsBluetooth.h)(0x5D2F2B66)
 I (Src\../Inc/commsAccelerometer.h)(0x5D3CA909)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F218E)
-I (Src\../Inc/navigator.h)(0x5D4D2FCC)
+I (Src\../Inc/navigator.h)(0x5DD907FB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\arm_math.h)(0x5C8FA234)
-F (.\Src\bldc.c)(0x5DAC3256)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\bldc.o --omf_browse .\objects\bldc.crf --depend .\objects\bldc.d)
+F (.\Src\bldc.c)(0x5E9B2541)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\bldc.o --omf_browse .\objects\bldc.crf --depend .\objects\bldc.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -67,7 +67,7 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
 F (.\Src\setup.c)(0x5D7C8A76)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\setup.o --omf_browse .\objects\setup.crf --depend .\objects\setup.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
@@ -95,10 +95,10 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-F (.\Src\it.c)(0x5D4EB57F)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\it.o --omf_browse .\objects\it.crf --depend .\objects\it.d)
+F (.\Src\it.c)(0x5E9B2669)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\it.o --omf_browse .\objects\it.crf --depend .\objects\it.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -124,11 +124,11 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/bldc.h)(0x5D86133D)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
 I (Src\../Inc/led.h)(0x5D2F29BA)
-I (Src\../Inc/commsMasterSlave.h)(0x5D5F8E0E)
+I (Src\../Inc/commsMasterSlave.h)(0x5E9B16FD)
 I (Src\../Inc/commsRemote.h)(0x5D3D6A59)
 I (Src\../Inc/commsSteeringPWM.h)(0x5D2F286B)
 I (Src\../Inc/commsInterlocks.h)(0x5D3F6846)
@@ -136,8 +136,8 @@ I (Src\../Inc/commsActuator.h)(0x5D2F287E)
 I (Src\../Inc/commsBluetooth.h)(0x5D2F2B66)
 I (Src\../Inc/commsAccelerometer.h)(0x5D3CA909)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F218E)
-I (Src\../Inc/navigator.h)(0x5D4D2FCC)
-F (.\Src\comms.c)(0x5D2F2B5E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\comms.o --omf_browse .\objects\comms.crf --depend .\objects\comms.d)
+I (Src\../Inc/navigator.h)(0x5DD907FB)
+F (.\Src\comms.c)(0x5DB55DB7)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\comms.o --omf_browse .\objects\comms.crf --depend .\objects\comms.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -162,7 +162,7 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_wwdgt.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
-F (.\Src\commsBluetooth.c)(0x5D4ED2B5)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsbluetooth.o --omf_browse .\objects\commsbluetooth.crf --depend .\objects\commsbluetooth.d)
+F (.\Src\commsBluetooth.c)(0x5E9B0F27)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsbluetooth.o --omf_browse .\objects\commsbluetooth.crf --depend .\objects\commsbluetooth.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -188,15 +188,15 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
-I (Src\../Inc/comms.h)(0x5D2F2B5C)
-I (Src\../Inc/commsMasterSlave.h)(0x5D5F8E0E)
+I (Src\../Inc/comms.h)(0x5DB55DE7)
+I (Src\../Inc/commsMasterSlave.h)(0x5E9B16FD)
 I (Src\../Inc/commsBluetooth.h)(0x5D2F2B66)
 I (Src\../Inc/led.h)(0x5D2F29BA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
-F (.\Src\commsMasterSlave.c)(0x5DAC1A7E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsmasterslave.o --omf_browse .\objects\commsmasterslave.crf --depend .\objects\commsmasterslave.d)
+F (.\Src\commsMasterSlave.c)(0x5E9B15DF)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsmasterslave.o --omf_browse .\objects\commsmasterslave.crf --depend .\objects\commsmasterslave.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -222,12 +222,12 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
-I (Src\../Inc/comms.h)(0x5D2F2B5C)
-I (Src\../Inc/commsMasterSlave.h)(0x5D5F8E0E)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
+I (Src\../Inc/comms.h)(0x5DB55DE7)
+I (Src\../Inc/commsMasterSlave.h)(0x5E9B16FD)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/bldc.h)(0x5D86133D)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
 F (.\Src\led.c)(0x5D2F29B7)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\led.o --omf_browse .\objects\led.crf --depend .\objects\led.d)
@@ -256,9 +256,9 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/led.h)(0x5D2F29BA)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-F (.\Src\commsActuator.c)(0x5D2F2882)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsactuator.o --omf_browse .\objects\commsactuator.crf --depend .\objects\commsactuator.d)
+F (.\Src\commsActuator.c)(0x5E905E6A)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsactuator.o --omf_browse .\objects\commsactuator.crf --depend .\objects\commsactuator.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -284,12 +284,12 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
-I (Src\../Inc/comms.h)(0x5D2F2B5C)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
+I (Src\../Inc/comms.h)(0x5DB55DE7)
 I (Src\../Inc/commsActuator.h)(0x5D2F287E)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/bldc.h)(0x5D86133D)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
 F (.\Src\commsInterlocks.c)(0x5D2F2899)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsinterlocks.o --omf_browse .\objects\commsinterlocks.crf --depend .\objects\commsinterlocks.d)
@@ -318,15 +318,15 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
-I (Src\../Inc/comms.h)(0x5D2F2B5C)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
+I (Src\../Inc/comms.h)(0x5DB55DE7)
 I (Src\../Inc/commsInterlocks.h)(0x5D3F6846)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/bldc.h)(0x5D86133D)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
-F (.\Src\commsSteeringPWM.c)(0x5D2F286F)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commssteeringpwm.o --omf_browse .\objects\commssteeringpwm.crf --depend .\objects\commssteeringpwm.d)
+F (.\Src\commsSteeringPWM.c)(0x5E9B248C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commssteeringpwm.o --omf_browse .\objects\commssteeringpwm.crf --depend .\objects\commssteeringpwm.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -352,15 +352,15 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
-I (Src\../Inc/comms.h)(0x5D2F2B5C)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
+I (Src\../Inc/comms.h)(0x5DB55DE7)
 I (Src\../Inc/commsSteeringPWM.h)(0x5D2F286B)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/bldc.h)(0x5D86133D)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
-F (.\Src\commsAccelerometer.c)(0x5D47D5CA)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsaccelerometer.o --omf_browse .\objects\commsaccelerometer.crf --depend .\objects\commsaccelerometer.d)
+F (.\Src\commsAccelerometer.c)(0x5DD98E63)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsaccelerometer.o --omf_browse .\objects\commsaccelerometer.crf --depend .\objects\commsaccelerometer.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -386,16 +386,16 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
-I (Src\../Inc/comms.h)(0x5D2F2B5C)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
+I (Src\../Inc/comms.h)(0x5DB55DE7)
 I (Src\../Inc/commsSteeringPWM.h)(0x5D2F286B)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/bldc.h)(0x5D86133D)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F218E)
-F (.\Src\commsRemote.c)(0x5DAC2EE2)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsremote.o --omf_browse .\objects\commsremote.crf --depend .\objects\commsremote.d)
+F (.\Src\commsRemote.c)(0x5E9B1AD1)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\commsremote.o --omf_browse .\objects\commsremote.crf --depend .\objects\commsremote.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -421,16 +421,16 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5D4E9DFB)
-I (Src\../Inc/../Inc/config.h)(0x5DAC4026)
-I (Src\../Inc/comms.h)(0x5D2F2B5C)
+I (Src\../Inc/../Inc/config.h)(0x5E9B2D4D)
+I (Src\../Inc/comms.h)(0x5DB55DE7)
 I (Src\../Inc/commsRemote.h)(0x5D3D6A59)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
-I (Src\../Inc/navigator.h)(0x5D4D2FCC)
+I (Src\../Inc/navigator.h)(0x5DD907FB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F218C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F218C)
-F (.\Src\navigator.c)(0x5DAC3679)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\navigator.o --omf_browse .\objects\navigator.crf --depend .\objects\navigator.d)
-I (Src\../Inc/config.h)(0x5DAC4026)
+F (.\Src\navigator.c)(0x5E9B1AD1)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\navigator.o --omf_browse .\objects\navigator.crf --depend .\objects\navigator.d)
+I (Src\../Inc/config.h)(0x5E9B2D4D)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
@@ -457,23 +457,23 @@ I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Devic
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/defines.h)(0x5D7C8B4D)
 I (Src\../Inc/setup.h)(0x5D3C6BFF)
-I (Src\../Inc/commsMasterSlave.h)(0x5D5F8E0E)
-I (Src\../Inc/bldc.h)(0x5D86133D)
+I (Src\../Inc/commsMasterSlave.h)(0x5E9B16FD)
+I (Src\../Inc/bldc.h)(0x5E9B15DF)
 F (.\Inc\defines.h)(0x5D7C8B4D)()
-F (.\Inc\config.h)(0x5DAC4026)()
-F (.\Inc\bldc.h)(0x5D86133D)()
+F (.\Inc\config.h)(0x5E9B2D4D)()
+F (.\Inc\bldc.h)(0x5E9B15DF)()
 F (.\Inc\setup.h)(0x5D3C6BFF)()
 F (.\Inc\it.h)(0x5D4E9DFB)()
-F (.\Inc\comms.h)(0x5D2F2B5C)()
+F (.\Inc\comms.h)(0x5DB55DE7)()
 F (.\Inc\commsBluetooth.h)(0x5D2F2B66)()
-F (.\Inc\commsMasterSlave.h)(0x5D5F8E0E)()
+F (.\Inc\commsMasterSlave.h)(0x5E9B16FD)()
 F (.\Inc\led.h)(0x5D2F29BA)()
 F (.\Inc\commsActuator.h)(0x5D2F287E)()
 F (.\Inc\commsInterlocks.h)(0x5D3F6846)()
 F (.\Inc\commsSteeringPWM.h)(0x5D2F286B)()
 F (.\Inc\commsAccelerometer.h)(0x5D3CA909)()
 F (.\Inc\commsRemote.h)(0x5D3D6A59)()
-F (.\Inc\navigator.h)(0x5D4D2FCC)()
+F (.\Inc\navigator.h)(0x5DD907FB)()
 F (C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Lib\ARM\arm_cortexM3l_math.lib)(0x5C8BB458)()
 F (RTE\Device\GD32F130C8\gd32f1x0_adc.c)(0x5CB79477)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I C:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Include-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DGD32F130_150-o .\objects\gd32f1x0_adc.o --omf_browse .\objects\gd32f1x0_adc.crf --depend .\objects\gd32f1x0_adc.d)
 I (C:\Users\GauchoHP\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_adc.h)(0x5A7B03DA)

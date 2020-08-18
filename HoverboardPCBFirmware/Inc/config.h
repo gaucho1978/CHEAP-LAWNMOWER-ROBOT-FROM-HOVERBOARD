@@ -33,8 +33,9 @@
 	#endif
 
 	// ###### ARMCHAIR ######
-	#define FILTER_SHIFT 7 						// Low-pass filter for pwm, rank k=12
-
+	#define FILTER_SHIFT 12 						// Low-pass filter for pwm, rank k=12
+	#define FILTER_SHIFT2 4 						// Low-pass filter for pwm, rank k=12
+	#define CONFIRMATIONSCOUNT 10				// low pass filter for pwm signal coming from radiocontrol
 	#ifdef MASTER
 		#define SPEED_COEFFICIENT   -1
 		#define STEER_COEFFICIENT   1
@@ -42,7 +43,12 @@
 		#define DEBUG_ENABLED		
 		//#define TERMINAL_ENABLED 					// uncomment this line to connect a terminal on the remote port and use it as debugging terminal port. this will generate a firmware bigger than 32kB.
 		//#define TERMINAL_ENABLED_PID_TUNING // this is like TERMINAL_ENABLED but it allows just pid tuning of the slave wheel, via serial port of master board
-	#endif
+		#ifndef TERMINAL_ENABLED
+			#ifndef TERMINAL_ENABLED_PID_TUNING
+				//#define MAVLINK_ENABLED //enable gps decoding on remote port.
+			#endif
+		#endif
+#endif
 	
 	#define DEBUG_WITH_TRACE_ENABLED //if enabled PB3 is left free for trace purpose. with keil you can use trace to see variables in a graph
 	#define DISTANCE_BETWEEN_WHEELS 520.0f	//millimeters era 525

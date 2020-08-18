@@ -1,0 +1,29 @@
+#com port
+COM15
+
+#roverShape (x,y couples)
+250,220,450,220,550,320,550,420,150,420,150,320,250,220
+
+#Sensor1 (rectangle X,Y, Width, Height and startAngle)
+45,170,300,300,-90
+
+#Sensor2 (rectangle X,Y, Width, Height and startAngle)
+153,170,300,300,-90
+
+#Sensor3 (rectangle X,Y, Width, Height and startAngle)
+266,170,300,300,-90
+
+#Sensor4 (rectangle X,Y, Width, Height and startAngle)
+379,170,300,300,-90
+
+#Sensor5 (rectangle X,Y, Width, Height and startAngle)
+379,200,300,300,90
+
+#Sensor6 (rectangle X,Y, Width, Height and startAngle)
+266,200,300,300,90
+
+#Sensor7 (rectangle X,Y, Width, Height and startAngle)
+153,200,300,300,90
+
+#Sensor8 (rectangle X,Y, Width, Height and startAngle)
+45,200,300,300,90

@@ -18,7 +18,7 @@ void UpdateUSARTMasterSlaveInput(void);
 //----------------------------------------------------------------------------
 // Send slave frame via USART
 //----------------------------------------------------------------------------
-void SendSlave(int16_t pwmSlave, FlagStatus enable, FlagStatus shutoff, FlagStatus chargeState, uint8_t identifier, int16_t value);
+void SendSlave(int16_t speedSlave, FlagStatus enable, FlagStatus shutoff, FlagStatus chargeState, uint8_t identifier, int16_t value);
 #endif
 #ifdef SLAVE
 //----------------------------------------------------------------------------

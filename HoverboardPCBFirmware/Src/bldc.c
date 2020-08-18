@@ -35,6 +35,7 @@ uint16_t moveByStepsTimeout=0; //timeout used to maintain steady the wheel for a
 	
 //const float speedConversionFactor= (((WHEEL_PERIMETER/90.0f)*6.0f)/62.5f)*3600 ; //90=steps in one turn of wheel, 6=steps in one turn of the phases, 62.5=time duration in usec for each speedcounter increment, 3600= confersion factor from mm/usec to km/h
 const float speedConversionFactor= (((WHEEL_PERIMETER/90.0f))/62.5f)*3600 ; //90=steps in one turn of wheel, 62.5=time duration in usec for each speedcounter increment, 3600= confersion factor from mm/usec to km/h
+const float speedConversionFactor_mm_per_second= (((WHEEL_PERIMETER/90.0f))/62.5f)*1000000 ; //90=steps in one turn of wheel, 62.5=time duration in usec for each speedcounter increment, 1000000= conversion factor from mm/usec to mm/sec
 
 // Internal constants
 const int16_t pwm_res = 72000000 / 2 / PWM_FREQ; // = 2250 72M divided by 2 times the period (62,5usec)
@@ -42,8 +43,12 @@ const int16_t pwm_res = 72000000 / 2 / PWM_FREQ; // = 2250 72M divided by 2 time
 // Global variables for voltage and current
 float batteryVoltage = 40.0;
 float currentDC = 0.0;
-float realSpeed = 0.0;
-
+//float realSpeed = 0.0;
+float realSpeed_mm_per_second =0;
+int16_t speed_mm_per_second_ThisWheel;
+int8_t direction=1;
+uint16_t cycleCounter=0;
+int16_t speedCorrection=0;
 // Timeoutvariable set by timeout timer
 extern FlagStatus timedOut;
 
@@ -81,6 +86,7 @@ int g = 0;     // green  = phase C
 uint8_t pos;
 uint8_t lastPos=0;
 int16_t bldc_outputFilterPwm = 0;
+
 int32_t filter_reg;
 FlagStatus buzzerToggle = RESET;
 uint8_t buzzerFreq = 0;
@@ -218,14 +224,16 @@ void SetEnable(FlagStatus setEnable){
 //----------------------------------------------------------------------------
 // Set pwm -1000 to 1000
 //----------------------------------------------------------------------------
-void SetPWM(int16_t setPwm){
-	bldc_inputFilterPwm = CLAMP(setPwm, -1000, 1000);
+void SetSpeed(int16_t setspeed){
+	speed_mm_per_second_ThisWheel = -CLAMP(setspeed, -1000, 1000);
 }
+
+/*
 
 //----------------------------------------------------------------------------
 // Calculation-Routine for BLDC => calculates with 16kHz
 //----------------------------------------------------------------------------
-void CalculateBLDC(void){
+void CalculateBLDC_old(void){
 
 	// Calibrate ADC offsets for the first 1000 cycles
   if (offsetcount < 1000){  
@@ -295,8 +303,8 @@ void CalculateBLDC(void){
 			#ifdef SLAVE
 				//check if the remaining steps of master wheel is the same of slave wheel
 				pid_error=remainingSteps-masterRemainingSteps; //error positive means that slave wheel must go faster
-				/* Calculate PID here, argument is error */
-				/* Output data will be returned, we will use it as correction parameter */
+				// Calculate PID here, argument is error 
+				//Output data will be returned, we will use it as correction parameter 
 				
 				tmpPwmCorrectionFactor = arm_pid_f32(&PID, pid_error); //correction positive increase speed of slave wheel
 				pwmCorrectionFactor=tmpPwmCorrectionFactor+(tmpPwmCorrectionFactor/ABS(tmpPwmCorrectionFactor))*0.5;
@@ -386,6 +394,102 @@ void CalculateBLDC(void){
 
 }
 
+*/
+
+
+//----------------------------------------------------------------------------
+// Calculation-Routine for BLDC => calculates with 16kHz
+//----------------------------------------------------------------------------
+void CalculateBLDC(void){
+
+	// Calibrate ADC offsets for the first 1000 cycles
+  if (offsetcount < 1000){  
+    offsetcount++;
+    offsetdc = (adc_buffer.current_dc + offsetdc) / 2;
+    return;
+  }
+	
+	// Calculate battery voltage every 100 cycles
+  if (buzzerTimer % 100 == 0){
+    batteryVoltage = batteryVoltage * 0.999 + ((float)adc_buffer.v_batt * ADC_BATTERY_VOLT) * 0.001;
+  }
+	
+	#ifdef MASTER
+		// Create square wave for buzzer
+		buzzerTimer++;
+		if (buzzerFreq != 0 && (buzzerTimer / 5000) % (buzzerPattern + 1) == 0){
+			if (buzzerTimer % buzzerFreq == 0){
+				buzzerToggle = buzzerToggle == RESET ? SET : RESET; // toggle variable
+				gpio_bit_write(BUZZER_PORT, BUZZER_PIN, buzzerToggle);
+			}
+		}else{
+			gpio_bit_write(BUZZER_PORT, BUZZER_PIN, RESET);
+		}
+	#endif
+	
+	// Calculate current DC
+	currentDC = ABS((adc_buffer.current_dc - offsetdc) * MOTOR_AMP_CONV_DC_AMP);
+
+  // Disable PWM when current limit is reached (current chopping), enable is not set or timeout is reached
+	if (currentDC > DC_CUR_LIMIT || bldc_enable == RESET || timedOut == SET){
+		timer_automatic_output_disable(TIMER_BLDC);		
+		if(currentDC > DC_CUR_LIMIT){
+			overCurrent=TRUE;
+		}
+  }else{
+		timer_automatic_output_enable(TIMER_BLDC);
+  }
+	
+  // Read hall sensors
+	hall_a = gpio_input_bit_get(HALL_A_PORT, HALL_A_PIN);
+  hall_b = gpio_input_bit_get(HALL_B_PORT, HALL_B_PIN);
+	hall_c = gpio_input_bit_get(HALL_C_PORT, HALL_C_PIN);
+  
+	// Determine current position based on hall sensors
+  hall = hall_a * 1 + hall_b * 2 + hall_c * 4;
+	pos = hall_to_pos[hall]; //pos will be at 90 degrees counterclockwise from hall position
+	
+	// Increments with 62.5us
+	if(speedCounter < 6000) speedCounter++;// No speed after x ms
+	
+	//calculate direction of the wheel
+	if(((pos-lastPos)==1) || ((pos-lastPos)==-5)){ // speed is positive
+		direction=-1; //robot is moving forward
+	}else if (((pos-lastPos)==-1) || ((pos-lastPos)==5)){
+		direction=1; //robot is moving backward
+	}
+	//realSpeed_mm_per_second=0;
+	if(ABS(pos-lastPos)==1 || ABS(pos-lastPos)==5  ){ //if the wheel is rotating reset the counter
+		realSpeed_mm_per_second=(float)direction * speedConversionFactor_mm_per_second / (float)speedCounter; // [mm/sec]
+		speedCounter = 0;
+	}else{
+		//gradually reduce the speed
+		if (ABS(realSpeed_mm_per_second)>(speedConversionFactor_mm_per_second / (float)speedCounter)) realSpeed_mm_per_second=(float)direction * speedConversionFactor_mm_per_second / (float)speedCounter; // [mm/sec]
+	}
+		
+	if (speedCounter >= 6000) realSpeed_mm_per_second = 0; //check if we stopped
+	
+	
+	// Save last position
+	lastPos = pos;
+	
+	// Calculate low-pass filter for pwm value
+	//obtained calculating proportional force, based on the speed difference
+	speedCorrection=CLAMP((speed_mm_per_second_ThisWheel-realSpeed_mm_per_second),-250,250);
+	
+	filter_reg = filter_reg - (filter_reg >> FILTER_SHIFT) + speedCorrection*2;
+	bldc_outputFilterPwm = filter_reg >> FILTER_SHIFT;
+
+	blockPWM(bldc_outputFilterPwm, pos, &y, &b, &g,FALSE); //set phases 90 degrees forward
+
+	// Set PWM output (pwm_res/2 is the mean value, setvalue has to be between 10 and pwm_res-10)
+	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_G, CLAMP(g + pwm_res / 2, 10, pwm_res-10));
+	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_B, CLAMP(b + pwm_res / 2, 10, pwm_res-10));
+	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_Y, CLAMP(y + pwm_res / 2, 10, pwm_res-10));
+
+}
+
+
 void go_to(int16_t distanceInMillimeters){
 	// perimeter of the wheel:54,5cm
 	remainingStepsFloat=(float)ABS(distanceInMillimeters)/WHEEL_PERIMETER;
@@ -409,17 +513,21 @@ void go_to(int16_t distanceInMillimeters){
 	approachingCorrectionFactor=0;
 	if(distanceInMillimeters>=0){//1=forward
 		#ifdef MASTER
-			SetPWM(-100);
+			//SetPWM(-100);
+			speed_mm_per_second_ThisWheel=-100;
 		#endif
 		#ifdef SLAVE
-			SetPWM(100);
+			//SetPWM(100);
+			speed_mm_per_second_ThisWheel=100;
 		#endif
 	}else{ //0=backward
 		#ifdef MASTER
-			SetPWM(100);
+			//SetPWM(100);
+			speed_mm_per_second_ThisWheel=100;
 		#endif
 		#ifdef SLAVE
-			SetPWM(-100);
+			//SetPWM(-100);
+			speed_mm_per_second_ThisWheel=-100;
 		#endif
 	}
 }

@@ -42,7 +42,7 @@
 	float realSpeedMaster = 0;
 	extern int16_t remainingSteps;
 	int16_t masterRemainingSteps=0;
-	extern float realSpeed; //real speed of the slave board
+	//extern float realSpeed_mm_per_second; //real speed of the slave board
 	extern bool moveBySteps;
 	extern bool moveByStepsCompleted;
 
@@ -57,7 +57,7 @@ static uint8_t sUSARTMasterSlaveRecordBufferCounter = 0;
 
 void CheckUSARTMasterSlaveInput(uint8_t u8USARTBuffer[]);
 void SendBuffer(uint32_t usart_periph, uint8_t buffer[], uint8_t length);
-uint16_t CalcCRC(uint8_t *ptr, int count);
+uint16_t CalcCRC(uint16_t  crc, uint8_t *ptr, int count);
 
 //----------------------------------------------------------------------------
 // Update USART master slave input
@@ -106,7 +106,7 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 #endif
 #ifdef SLAVE
 	// Result variables
-	int16_t pwmSlave = 0;
+	int16_t speedSlave = 0;
 	FlagStatus enable = RESET;
 	FlagStatus shutoff = RESET;
 	FlagStatus chargeStateLowActive = SET;
@@ -127,7 +127,7 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 	}
 	
 	// Calculate CRC (first bytes except crc and stop byte)
-	crc = CalcCRC(USARTBuffer, USART_MASTERSLAVE_RX_BYTES - 3);
+	crc = CalcCRC(0x0,USARTBuffer, USART_MASTERSLAVE_RX_BYTES - 3);
 	
 	// Check CRC
 	if ( USARTBuffer[USART_MASTERSLAVE_RX_BYTES - 3] != ((crc >> 8) & 0xFF) ||
@@ -157,7 +157,7 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 #endif
 #ifdef SLAVE
 	// Calculate result pwm value -1000 to 1000
-	pwmSlave = (int16_t)((USARTBuffer[1] << 8) | USARTBuffer[2]);
+	speedSlave = (int16_t)((USARTBuffer[1] << 8) | USARTBuffer[2]);
 	
 	// Get identifier
 	identifier = USARTBuffer[3];
@@ -184,8 +184,7 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 		
 		// Set pwm and enable to off
 		SetEnable(RESET);
-		SetPWM(0);
-		
+		SetSpeed(0);
 		gpio_bit_write(SELF_HOLD_PORT, SELF_HOLD_PIN, RESET);
 		while(1)
 		{
@@ -205,7 +204,8 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 	//halfMillisecondsCount=0;
 	if(!moveBySteps){ //movements controlled by speed and steer 
 		SetEnable(enable);
-		SetPWM(pwmSlave);
+		SetSpeed(speedSlave);
+
 	}
 	// Send answer
 	SendMaster(upperLEDMaster, lowerLEDMaster, mosfetOutMaster, beepsBackwardsMaster,moveByStepsCompleted);
@@ -219,15 +219,15 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 //----------------------------------------------------------------------------
 // Send slave frame via USART
 //----------------------------------------------------------------------------
-void SendSlave(int16_t pwmSlave, FlagStatus enable, FlagStatus shutoff, FlagStatus chargeState, uint8_t identifier, int16_t value)
+void SendSlave(int16_t speedSlave, FlagStatus enable, FlagStatus shutoff, FlagStatus chargeState, uint8_t identifier, int16_t value)
 {
 	uint8_t index = 0;
 	uint16_t crc = 0;
 	uint8_t buffer[USART_MASTERSLAVE_TX_BYTES];
 	
 	// Format pwmValue and general value
-	int16_t sendPwm = CLAMP(pwmSlave, -1000, 1000);
-	uint16_t sendPwm_Uint = (uint16_t)(sendPwm);
+	int16_t sendSpeed = CLAMP(speedSlave, -1000, 1000);
+	uint16_t sendSpeed_Uint = (uint16_t)(sendSpeed);
 	uint16_t value_Uint = (uint16_t)(value);
 	
 	uint8_t sendByte = 0;
@@ -242,15 +242,15 @@ void SendSlave(int16_t pwmSlave, FlagStatus enable, FlagStatus shutoff, FlagStat
 	
 	// Send answer
 	buffer[index++] = '/';
-	buffer[index++] = (sendPwm_Uint >> 8) & 0xFF;
-	buffer[index++] = sendPwm_Uint & 0xFF;
+	buffer[index++] = (sendSpeed_Uint >> 8) & 0xFF;
+	buffer[index++] = sendSpeed_Uint & 0xFF;
 	buffer[index++] = identifier;
 	buffer[index++] = (value_Uint >> 8) & 0xFF;
 	buffer[index++] = value_Uint & 0xFF;	
 	buffer[index++] = sendByte;
 	
 	// Calculate CRC
-  crc = CalcCRC(buffer, index);
+  crc = CalcCRC(0x0,buffer, index);
   buffer[index++] = (crc >> 8) & 0xFF;
   buffer[index++] = crc & 0xFF;
 
@@ -285,7 +285,7 @@ void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus
 	buffer[index++] = sendByte;
 	
 	// Calculate CRC
-  crc = CalcCRC(buffer, index);
+  crc = CalcCRC(0x0,buffer, index);
   buffer[index++] = (crc >> 8) & 0xFF;
   buffer[index++] = crc & 0xFF;
 

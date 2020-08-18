@@ -21,7 +21,7 @@ void SetEnable(FlagStatus setEnable);
 //----------------------------------------------------------------------------
 // Set pwm -1000 to 1000
 //----------------------------------------------------------------------------
-void SetPWM(int16_t setPwm);
+void SetSpeed(int16_t setspeed);
 
 //----------------------------------------------------------------------------
 // Calculation-Routine for BLDC => calculates with 16kHz

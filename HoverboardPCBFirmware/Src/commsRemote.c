@@ -21,10 +21,21 @@
 #ifdef MASTER
 
 	#define USART_REMOTE_MASTERBOARD_TX_BYTES 198   //number of bytes to transmit
-	#define USART_REMOTE_MASTERBOARD_RX_BYTES 9   // Receive byte count including  start char '/' and stop character '\r\n'
-	#define USART_REMOTE_MASTERBOARD_RX_MINIMUM_BYTES 3   // Receive byte count including  start char '/' and stop character '\r\n'
+	#ifdef MAVLINK_ENABLED
+		#define USART_REMOTE_MASTERBOARD_RX_BYTES 42   // Receive byte count including  start character for GPS data
+		#define USART_REMOTE_MASTERBOARD_RX_MINIMUM_BYTES 42   // Receive byte count including  start char '/' and stop character '\r\n'
+	#else
+		#define USART_REMOTE_MASTERBOARD_RX_BYTES 9   // Receive byte count including  start char '/' and stop character '\r\n'
+		#define USART_REMOTE_MASTERBOARD_RX_MINIMUM_BYTES 3   // Receive byte count including  start char '/' and stop character '\r\n'
+	#endif
 
-
+	uint16_t MavLinkCRC;
+	int32_t GpsLatitudeWGS84; 
+	int32_t GpsLongitudeWGS84;
+	uint16_t GpsHdop;
+	uint8_t GpsSatellitesNumber;
+	
+	
 	extern FlagStatus panicButtonPressed;
 	//extern FlagStatus chargeStateLowActive;
 
@@ -44,8 +55,8 @@
 
 	void CheckUSART_Remote_MasterBoard_Input(uint8_t u8USARTBuffer[]);
 
-	extern int32_t steer;
-	extern int32_t speed;
+	extern int16_t steerAngle;
+	extern int16_t speed_mm_per_second;
 
 	#ifdef TERMINAL_ENABLED
 		unsigned char helpArray[158]={'/','h','=','T','h','i','s',' ','h','e','l','p','\r','\n','/','l','=','I','M','U',' ','l','o','g','\r','\n','/','s','=','S','p','e','e','d','+','S','t','e','e','r','\r','\n','/','m','+','0','0','0','0','0','=','M','o','v','e',' ','F','o','r','w','a','r','d',' ','f','o','r',' ','p','o','s','i','t','i','v','e', 'V','a','l','u','e',',','B','a','c','k','w','a','r','d',' ','o','t','h','e','r','w','i','s','e','\r','\n','/','t','+','0','0','0','0','0','=','T','u','r','n',' ','L','e','f','t',' ','f','o','r',' ','n','e','g','a','t','i','v','e',' ','V','a','l','u','e',',',' ','R','i','g','h','t',' ','o','t','h','e','r','w','i','s','e','\r','\n'};
@@ -122,7 +133,7 @@ void Send_Data_over_REMOTE_serialPort_of_MasterBoard(void)
 				buffer[index++] = '=';
 				buffer[index++] = ' ';
 				//sprintf(charValVerbose, "%05d", speed);
-				myFtoa(speed, charVal, 5); 
+				myFtoa(speed_mm_per_second, charVal, 5); 
 				buffer[index++] = charVal[0];
 				buffer[index++] = charVal[1];
 				buffer[index++] = charVal[2];
@@ -138,7 +149,7 @@ void Send_Data_over_REMOTE_serialPort_of_MasterBoard(void)
 				buffer[index++] = '=';
 				buffer[index++] = ' ';
 				//sprintf(charValVerbose, "%05d", steer);
-				myFtoa(steer, charVal, 5); 
+				myFtoa(steerAngle, charVal, 5); 
 				buffer[index++] = charVal[0];
 				buffer[index++] = charVal[1];
 				buffer[index++] = charVal[2];
@@ -167,30 +178,50 @@ void UpdateUSART_REMOTE_MASTER_BOARD_Input(void)
 {
 	uint8_t character = usartRemote_MasterBoard_COM_rx_buf[0];
 	
-	// Start character is captured, start record
-	if (character == '/')
-	{
-		
-		sUSARTRemote_MasterBoard_RecordBufferCounter = 0;
-		isRecordingDataPacket = 1;
-	}
+	#ifdef MAVLINK_ENABLED
+		// Start character is captured, start record
+		if (character == 0xFD){
+			sUSARTRemote_MasterBoard_RecordBufferCounter = 0;
+			isRecordingDataPacket = 1;
+		}
+	#else
+		// Start character is captured, start record
+		if (character == '/')
+		{
+			
+			sUSARTRemote_MasterBoard_RecordBufferCounter = 0;
+			isRecordingDataPacket = 1;
+		}
+	#endif
 	
 	if (isRecordingDataPacket)
 	{
 		sUSARTRemote_MasterBoard_RecordBuffer[sUSARTRemote_MasterBoard_RecordBufferCounter] = character;
 		sUSARTRemote_MasterBoard_RecordBufferCounter++;
-		
-		//if buffer is full or end of command \r identified
-		if (sUSARTRemote_MasterBoard_RecordBufferCounter >= USART_REMOTE_MASTERBOARD_RX_BYTES ||
-			character=='\r')
-		{
-			
-			sUSARTRemote_MasterBoard_RecordBufferCounter = 0;
-			isRecordingDataPacket = 0;
-			
-			// Check input
-			CheckUSART_Remote_MasterBoard_Input (sUSARTRemote_MasterBoard_RecordBuffer);
-		}
+		#ifdef MAVLINK_ENABLED
+			//if buffer is full 
+			if (sUSARTRemote_MasterBoard_RecordBufferCounter >= USART_REMOTE_MASTERBOARD_RX_BYTES)
+			{
+				
+				sUSARTRemote_MasterBoard_RecordBufferCounter = 0;
+				isRecordingDataPacket = 0;
+				
+				// Check input
+				CheckUSART_Remote_MasterBoard_Input (sUSARTRemote_MasterBoard_RecordBuffer);
+			}
+		#else
+			//if buffer is full or end of command \r identified
+			if (sUSARTRemote_MasterBoard_RecordBufferCounter >= USART_REMOTE_MASTERBOARD_RX_BYTES ||
+				character=='\r')
+			{
+				
+				sUSARTRemote_MasterBoard_RecordBufferCounter = 0;
+				isRecordingDataPacket = 0;
+				
+				// Check input
+				CheckUSART_Remote_MasterBoard_Input (sUSARTRemote_MasterBoard_RecordBuffer);
+			}
+		#endif
 	}
 }
 
@@ -199,90 +230,115 @@ void UpdateUSART_REMOTE_MASTER_BOARD_Input(void)
 //----------------------------------------------------------------------------
 void CheckUSART_Remote_MasterBoard_Input(uint8_t USARTBuffer[])
 {
+	#ifdef MAVLINK_ENABLED
+		uint16_t receivedMsgCrc;
+		//check crc
+		MavLinkCRC= *(uint16_t*)&USARTBuffer[40]; 
+		//TBDone....................................
+		//add the crc_extra on last 2 bytes, taking those data from the GPS device xml implementation
 	
-	// Check start and stop character (stop char can be at pos.2 or 8)
-	if ( USARTBuffer[0] != '/' ||
-		((USARTBuffer[USART_REMOTE_MASTERBOARD_RX_BYTES - 1] != '\r') && (USARTBuffer[2] != '\r') ))	{ 
-		return;
-	}
-	
-	if (USARTBuffer[2] == '\r'){ //if it is a short command
+		receivedMsgCrc = CalcCRC(0xFFFF,&USARTBuffer[1], USART_REMOTE_MASTERBOARD_RX_BYTES - 1-2);
+		if (MavLinkCRC!=receivedMsgCrc){ //if wrong CRC
+			return;
+		}
+		//check message ID (bytes from 7 to 9)
+		//id 24=gps data
+		if(USARTBuffer[9]==24 && USARTBuffer[8]==0 && USARTBuffer[7]==0){ //if it is GPS message
+			//extract GPS data
+			GpsLatitudeWGS84= *(int32_t*)&USARTBuffer[19]; 
+			GpsLongitudeWGS84= *(int32_t*)&USARTBuffer[23]; 
+			GpsHdop=*(uint16_t*)&USARTBuffer[31];
+			GpsSatellitesNumber=*(uint8_t*)&USARTBuffer[39];
+		}
 		
-		#ifdef TERMINAL_ENABLED
 		
-			if(USARTBuffer[1]=='h'){
-				//we shall print help legend
-				printHelpLegend=TRUE;
-			}
-			if(USARTBuffer[1]=='l'){
-				//we shall record accelerometers log 
-				
-				//if we are not recording neither printing, start recording
-				if((printAccelerometerLog==0) && (recordAccelerometerLog==0)){ 
-					logImuArrayCurrentIndex=0;
-					recordAccelerometerLog=TRUE;
-				}
-			}
-			if(USARTBuffer[1]=='s'){
-				//we shall print speed and steer
-				printSpeedAndSteer=TRUE;
-			}
-		#endif
 		
-	}
 
-	if (USARTBuffer[USART_REMOTE_MASTERBOARD_RX_BYTES - 1] == '\r'){ //if it is a long command
+	#else
+		// Check start and stop character (stop char can be at pos.2 or 8)
+		if ( USARTBuffer[0] != '/' ||
+			((USARTBuffer[USART_REMOTE_MASTERBOARD_RX_BYTES - 1] != '\r') && (USARTBuffer[2] != '\r') ))	{ 
+			return;
+		}
 		
-		#ifdef TERMINAL_ENABLED
-			if(USARTBuffer[1]=='m' || USARTBuffer[1]=='t'){ //move or turn
-				int16_t cmdValue;
-				cmdValue=(USARTBuffer[3] - '0') * 10000;
-				cmdValue=cmdValue+ (USARTBuffer[4] - '0') * 1000;
-				cmdValue=cmdValue+ (USARTBuffer[5] - '0') * 100;
-				cmdValue=cmdValue+ (USARTBuffer[6] - '0') * 10;
-				cmdValue=cmdValue+ (USARTBuffer[7] - '0');	
-				if (cmdValue<0) cmdValue=0; //maybe overflow, set 0 to avoid wrong direction
-				//get the sign
-				//by default assume positive value
-				if (USARTBuffer[2]=='-') cmdValue=-cmdValue; //negative value
-				
-				if (USARTBuffer[1]=='m'){ //we must go straight
+		if (USARTBuffer[2] == '\r'){ //if it is a short command
+			
+			#ifdef TERMINAL_ENABLED
+			
+				if(USARTBuffer[1]=='h'){
+					//we shall print help legend
+					printHelpLegend=TRUE;
+				}
+				if(USARTBuffer[1]=='l'){
+					//we shall record accelerometers log 
 					
-					move(FALSE,cmdValue);
-				}else{ //we must turn
-					move(TRUE,cmdValue);
-				}				
-			}
-		#endif
-		
-		#ifdef TERMINAL_ENABLED_PID_TUNING
-			if(USARTBuffer[1]=='p' || USARTBuffer[1]=='i' || USARTBuffer[1]=='d'){ //pid parameters
-				int16_t cmdValue;
-				cmdValue=(USARTBuffer[3] - '0') * 10000;
-				cmdValue=cmdValue+ (USARTBuffer[4] - '0') * 1000;
-				cmdValue=cmdValue+ (USARTBuffer[5] - '0') * 100;
-				cmdValue=cmdValue+ (USARTBuffer[6] - '0') * 10;
-				cmdValue=cmdValue+ (USARTBuffer[7] - '0');	
-				if (cmdValue<0) cmdValue=0; //maybe overflow, set 0 to avoid wrong direction
-				//get the sign
-				//by default assume positive value
-				if (USARTBuffer[2]=='-') cmdValue=-cmdValue; //negative value
-				
-				if (USARTBuffer[1]=='p'){ //proportional constant (*1000)
-					PID_PARAM_KP=cmdValue/10000.0;
+					//if we are not recording neither printing, start recording
+					if((printAccelerometerLog==0) && (recordAccelerometerLog==0)){ 
+						logImuArrayCurrentIndex=0;
+						recordAccelerometerLog=TRUE;
+					}
 				}
-				if (USARTBuffer[1]=='i'){ //integral constant (*1000)
-					PID_PARAM_KI=cmdValue/10000.0;
+				if(USARTBuffer[1]=='s'){
+					//we shall print speed and steer
+					printSpeedAndSteer=TRUE;
 				}
-				if (USARTBuffer[1]=='d'){ //differential constant (*1000)
-					PID_PARAM_KD=cmdValue/10000.0;
-				}
-				//echo received value
-				SendBuffer(USART_REMOTE_COM, USARTBuffer, 9);
-			}
-		#endif
+			#endif
+			
+		}
 
-	}
+		if (USARTBuffer[USART_REMOTE_MASTERBOARD_RX_BYTES - 1] == '\r'){ //if it is a long command
+			
+			#ifdef TERMINAL_ENABLED
+				if(USARTBuffer[1]=='m' || USARTBuffer[1]=='t'){ //move or turn
+					int16_t cmdValue;
+					cmdValue=(USARTBuffer[3] - '0') * 10000;
+					cmdValue=cmdValue+ (USARTBuffer[4] - '0') * 1000;
+					cmdValue=cmdValue+ (USARTBuffer[5] - '0') * 100;
+					cmdValue=cmdValue+ (USARTBuffer[6] - '0') * 10;
+					cmdValue=cmdValue+ (USARTBuffer[7] - '0');	
+					if (cmdValue<0) cmdValue=0; //maybe overflow, set 0 to avoid wrong direction
+					//get the sign
+					//by default assume positive value
+					if (USARTBuffer[2]=='-') cmdValue=-cmdValue; //negative value
+					
+					if (USARTBuffer[1]=='m'){ //we must go straight
+						
+						move(FALSE,cmdValue);
+					}else{ //we must turn
+						move(TRUE,cmdValue);
+					}				
+				}
+			#endif
+			
+			#ifdef TERMINAL_ENABLED_PID_TUNING
+				if(USARTBuffer[1]=='p' || USARTBuffer[1]=='i' || USARTBuffer[1]=='d'){ //pid parameters
+					int16_t cmdValue;
+					cmdValue=(USARTBuffer[3] - '0') * 10000;
+					cmdValue=cmdValue+ (USARTBuffer[4] - '0') * 1000;
+					cmdValue=cmdValue+ (USARTBuffer[5] - '0') * 100;
+					cmdValue=cmdValue+ (USARTBuffer[6] - '0') * 10;
+					cmdValue=cmdValue+ (USARTBuffer[7] - '0');	
+					if (cmdValue<0) cmdValue=0; //maybe overflow, set 0 to avoid wrong direction
+					//get the sign
+					//by default assume positive value
+					if (USARTBuffer[2]=='-') cmdValue=-cmdValue; //negative value
+					
+					if (USARTBuffer[1]=='p'){ //proportional constant (*1000)
+						PID_PARAM_KP=cmdValue/10000.0;
+					}
+					if (USARTBuffer[1]=='i'){ //integral constant (*1000)
+						PID_PARAM_KI=cmdValue/10000.0;
+					}
+					if (USARTBuffer[1]=='d'){ //differential constant (*1000)
+						PID_PARAM_KD=cmdValue/10000.0;
+					}
+					//echo received value
+					SendBuffer(USART_REMOTE_COM, USARTBuffer, 9);
+				}
+			#endif
+
+		}
+	#endif
 }
 #endif
 

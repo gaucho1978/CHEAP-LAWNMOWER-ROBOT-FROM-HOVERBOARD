@@ -18,7 +18,7 @@
 #ifdef SLAVE
 // Variables which will be send over bluetooth
 extern float currentDC;
-extern float realSpeed;
+extern float realSpeed_mm_per_second;
 
 extern uint32_t hornCounter_ms;
 
@@ -117,8 +117,8 @@ void CheckUSARTBluetoothInput(uint8_t USARTBuffer[])
 				break;
 			case 4:
 				// Answer with real speed of slave
-				value = realSpeed * 1000;
-				if (realSpeed>32.0f) value=32000;
+				value = realSpeed_mm_per_second * 1000;
+				if (realSpeed_mm_per_second>32.0f) value=32000;
 				break;
 			case 5:
 				// Answer with beeps backwards from master

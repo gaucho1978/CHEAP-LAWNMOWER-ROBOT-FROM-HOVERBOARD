@@ -16,6 +16,6 @@ void SendBuffer(uint32_t usart_periph, uint8_t buffer[], uint8_t length);
 //----------------------------------------------------------------------------
 // Calculate CRC
 //----------------------------------------------------------------------------
-uint16_t CalcCRC(uint8_t *ptr, int count);
+uint16_t CalcCRC(uint16_t  crc, uint8_t *ptr, int count);
 
 #endif

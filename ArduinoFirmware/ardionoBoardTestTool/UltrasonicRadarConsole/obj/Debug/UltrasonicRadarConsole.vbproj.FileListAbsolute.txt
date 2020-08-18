@@ -1,0 +1,20 @@
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\bin\Debug\UltrasonicRadarConsole.exe
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\bin\Debug\UltrasonicRadarConsole.pdb
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\bin\Debug\UltrasonicRadarConsole.xml
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\obj\Debug\WindowsApplication1.Form1.resources
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\obj\Debug\WindowsApplication1.Resources.resources
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.vbproj.GenerateResource.Cache
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.exe
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.xml
+C:\Users\GauchoHP\Desktop\grafico radar\UltrasonicRadarConsole\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.pdb
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.exe
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.xml
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.pdb
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\bin\Debug\UltrasonicRadarConsole.exe
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\bin\Debug\UltrasonicRadarConsole.pdb
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\bin\Debug\UltrasonicRadarConsole.xml
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\obj\Debug\WindowsApplication1.Form1.resources
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\obj\Debug\WindowsApplication1.Resources.resources
+C:\Users\GauchoHP\Desktop\old_desktop\tosaerba\LAWNMOWER-ROBOT-from-Hoverboard-\ArduinoFirmware\ardionoBoardTestTool\UltrasonicRadarConsole\obj\Debug\UltrasonicRadarConsole.vbproj.GenerateResource.Cache
