@@ -80,7 +80,8 @@ The reverse-engineered schematics of the mainboards can be found in the folder H
 
 In order to use  GPIO represented as "not used" on the hoverboard schematic, you need to solder some zero ohm resistors (or jumpers) (see schematic).
 
-I soldered the resistive divider(see lawnmower schematic) directly on the pcb, on the free pads related to  missing components. this way the connection to the rc receiver becomes simple as few wires. 
+I soldered resistive dividers directly on the pcb as shown on the following image (while on the dwg lawnmower schematic, the resistors are represented as external components). this way the connection to the rc receiver becomes simple as few wires:
+![otter](https://github.com/gaucho1978/CHEAP-LAWNMOWER-ROBOT-FROM-HOVERBOARD/blob/master/HoverboardPCBFirmware/images/weldings.png)
 
 I REUSED THE HOVERBOARD HARDWARE AS IT IS. I DIDN'T MODIFIED THE FRAME, I JUST ROTATED IT 180 DEGREES.
 
