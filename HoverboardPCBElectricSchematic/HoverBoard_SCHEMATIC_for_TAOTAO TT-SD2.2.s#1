@@ -14640,20 +14640,20 @@ B_High: PA9   (out)  TIM0_CH2
 B_Low : PB14 (out)  TIM0_CH2N
 Y_High: PA8   (out)  TIM0_CH1
 Y_Low : PB13 (out)  TIM0_CH1N</text>
-<text x="120.5" y="148.5" size="2.54" layer="90">V_BATT:                  PA4   (analog)
-CURRENT_DC:        PA6   (analog)
+<text x="101.5" y="150" size="2.54" layer="90">V_BATT:                     PA4   (analog)
+CURRENT_DC:         PA6   (analog)
 EMERGENCY_OFF: PB12 (in)  TIM0_Break_Input
-CHARGE_STATE:    PF0 (in, pullup)
+CHARGE_STATE:     PF0 (in, pullup)
 
 unused: PB4, PB5, PA6</text>
-<text x="40.5" y="149" size="2.54" layer="90">L1: PA7   (in)
+<text x="21" y="82" size="2.54" layer="90">L1: PA7   (in)
 L2: PA11 (in)
 
 REMOTE.R: PB7 (I2C1_SDA / USART0_RX)
 REMOTE.T: PB6 (I2C1_SCL / USART0_TX)</text>
-<text x="210" y="162.5" size="2.54" layer="90">Accelerometer:equivalent to BOSH BMI160
-SDA: PB9 (I2C2)
-SCL: PB8 (I2C2)</text>
+<text x="187.5" y="161.5" size="2.54" layer="90">Accelerometer:equivalent to BOSH BMI160
+   SDA: PB9 (I2C2)
+   SCL: PB8 (I2C2)</text>
 <wire x1="94" y1="63" x2="94" y2="133" width="0.4064" layer="94"/>
 <wire x1="94" y1="133" x2="243" y2="133" width="0.4064" layer="94"/>
 <wire x1="243" y1="133" x2="243" y2="63" width="0.4064" layer="94"/>
@@ -14922,12 +14922,12 @@ SCL: PB8 (I2C2)</text>
 <text x="105" y="93" size="2.54" layer="97">BUZZER</text>
 <text x="158" y="84" size="3.81" layer="91">Controller: GD32F130C8</text>
 <text x="165.44" y="18.82" size="1.778" layer="94">Reverse engineered by Florian and Gaucho</text>
-<text x="8" y="127.5" size="2.54" layer="91">MANUFACTURER:TAOTAO</text>
-<text x="8" y="123.5" size="2.54" layer="91">BOARD PART NUMBER: TT-SD2.2</text>
-<text x="8" y="116.5" size="2.54" layer="91">MOUNTED ON THE FOLLOWING HOVERBOARDS:</text>
-<text x="12.5" y="111.5" size="2.54" layer="91">-COOL&amp;FUN</text>
-<text x="12.5" y="107.5" size="2.54" layer="91">-KID PLAY BALBOARD ONE</text>
-<text x="12" y="103.5" size="2.54" layer="91">...ETC</text>
+<text x="8.5" y="169.5" size="2.54" layer="91">MANUFACTURER:TAOTAO</text>
+<text x="8" y="164.5" size="2.54" layer="91">BOARD PART NUMBER: TT-SD2.2</text>
+<text x="8" y="159.5" size="2.54" layer="91">MOUNTED ON THE FOLLOWING HOVERBOARDS:</text>
+<text x="9.5" y="154.5" size="2.54" layer="91">-COOL&amp;FUN</text>
+<text x="9.5" y="149.5" size="2.54" layer="91">-KID PLAY BALBOARD ONE</text>
+<text x="7.5" y="145" size="2.54" layer="91">...ETC</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0" smashed="yes">
@@ -15984,7 +15984,9 @@ SCL: PB8 (I2C2)</text>
 <wire x1="42" y1="10.5" x2="14" y2="10.5" width="0.1524" layer="95"/>
 <text x="15" y="-8" size="1.778" layer="95">U2
 MARKING:7NYBS
-ICM-42605</text>
+similar to Bosh BMI160
+(same pinout and 
+memory structure)</text>
 <text x="13" y="7.5" size="1.778" layer="95">7              6               5</text>
 <text x="13" y="-19.5" size="1.778" layer="95">12            13           14</text>
 <text x="8" y="-18" size="1.778" layer="95">8

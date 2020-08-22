@@ -14651,8 +14651,9 @@ L2: PA11 (in)
 
 REMOTE.R: PB7 (I2C1_SDA / USART0_RX)
 REMOTE.T: PB6 (I2C1_SCL / USART0_TX)</text>
-<text x="210" y="162.5" size="2.54" layer="90">MPU6050.SDA: PB9 (I2C2)
-MPU6050.SCL: PB8 (I2C2)</text>
+<text x="210" y="162.5" size="2.54" layer="90">Accelerometer:equivalent to BOSH BMI160
+SDA: PB9 (I2C2)
+SCL: PB8 (I2C2)</text>
 <wire x1="94" y1="63" x2="94" y2="133" width="0.4064" layer="94"/>
 <wire x1="94" y1="133" x2="243" y2="133" width="0.4064" layer="94"/>
 <wire x1="243" y1="133" x2="243" y2="63" width="0.4064" layer="94"/>
