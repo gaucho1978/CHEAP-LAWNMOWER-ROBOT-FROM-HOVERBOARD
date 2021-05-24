@@ -40,7 +40,7 @@ These are some images (the base is aluminium and the cover in polycarbonate):
 
 6 EURO - STLINK V2 PROGRAMMER (TO FLASH HOVERBOARD FIRMWARE) - https://www.ebay.it/itm/352654456738?ViewItem=&item=352654456738
 
-5 EURO - FIVE PROXIMITY SENSORS HC-SR04 - https://www.ebay.it/itm/312495306039
+17 EURO - 10 PROXIMITY SENSORS HC-SR04 - https://www.ebay.it/itm/312495306039 https://www.amazon.it/dp/B07MPZR59P/ref=cm_sw_r_cp_apa_glt_i_Q1WTGSVRN5MXQZJ7DQEB?_encoding=UTF8&psc=1
 
 2 EURO - Arduino nano(clone): https://www.ebay.it/itm/322913230315
 
